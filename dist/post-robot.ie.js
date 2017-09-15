@@ -31,13 +31,13 @@
             return __webpack_require__.d(getter, "a", getter), getter;
         }, __webpack_require__.o = function(object, property) {
             return Object.prototype.hasOwnProperty.call(object, property);
-        }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 33);
+        }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 34);
     }([ function(module, exports, __webpack_require__) {
         "use strict";
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _config = __webpack_require__(29);
+        var _config = __webpack_require__(30);
         Object.keys(_config).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -229,6 +229,12 @@
             var doc = frame.ownerDocument;
             return !(!doc || !doc.body || doc.body.contains(frame));
         }
+        function safeIndexOf(collection, item) {
+            for (var i = 0; i < collection.length; i++) try {
+                if (collection[i] === item) return i;
+            } catch (err) {}
+            return -1;
+        }
         function isWindowClosed(win) {
             var allowMock = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1];
             try {
@@ -244,7 +250,7 @@
             try {
                 if (win.closed) return !0;
             } catch (err) {
-                return !err || "Call was rejected by callee.\r\n" !== err.message;
+                return !err || err.message !== IE_WIN_ACCESS_ERROR;
             }
             if (allowMock && isSameDomain(win)) try {
                 if (win.mockclosed) return !0;
@@ -253,12 +259,15 @@
                 if (!win.parent || !win.top) return !0;
             } catch (err) {}
             try {
-                var index = iframeWindows.indexOf(win);
-                if (-1 !== index) {
-                    var frame = iframeFrames[index];
-                    if (frame && isFrameWindowClosed(frame)) return !0;
-                }
-            } catch (err) {}
+                (0, _util.noop)(win === win);
+            } catch (err) {
+                return !0;
+            }
+            var iframeIndex = safeIndexOf(iframeWindows, win);
+            if (-1 !== iframeIndex) {
+                var frame = iframeFrames[iframeIndex];
+                if (frame && isFrameWindowClosed(frame)) return !0;
+            }
             return !1;
         }
         function cleanIframes() {
@@ -446,8 +455,40 @@
         }
         function isWindow(obj) {
             try {
+                if (obj === window) return !0;
+            } catch (err) {
+                if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+            }
+            try {
+                if (window.Window && obj instanceof window.Window) return !0;
+            } catch (err) {
+                if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+            }
+            try {
                 if (obj && obj.self === obj) return !0;
-            } catch (err) {}
+            } catch (err) {
+                if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+            }
+            try {
+                if (obj && obj.parent === obj) return !0;
+            } catch (err) {
+                if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+            }
+            try {
+                if (obj && obj.top === obj) return !0;
+            } catch (err) {
+                if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+            }
+            try {
+                (0, _util.noop)(obj === obj);
+            } catch (err) {
+                return !0;
+            }
+            try {
+                (0, _util.noop)(obj && obj.__cross_domain_utils_window_check__);
+            } catch (err) {
+                return !0;
+            }
             return !1;
         }
         Object.defineProperty(exports, "__esModule", {
@@ -467,17 +508,17 @@
         exports.getNthParentFromTop = getNthParentFromTop, exports.isSameTopWindow = isSameTopWindow, 
         exports.matchDomain = matchDomain, exports.getDomainFromUrl = getDomainFromUrl, 
         exports.onCloseWindow = onCloseWindow, exports.isWindow = isWindow;
-        var _util = __webpack_require__(19), CONSTANTS = {
+        var _util = __webpack_require__(20), CONSTANTS = {
             MOCK_PROTOCOL: "mock:",
             FILE_PROTOCOL: "file:",
             WILDCARD: "*"
-        }, iframeWindows = [], iframeFrames = [];
+        }, IE_WIN_ACCESS_ERROR = "Call was rejected by callee.\r\n", iframeWindows = [], iframeFrames = [];
     }, function(module, exports, __webpack_require__) {
         "use strict";
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _promise = __webpack_require__(21);
+        var _promise = __webpack_require__(22);
         Object.defineProperty(exports, "ZalgoPromise", {
             enumerable: !0,
             get: function() {
@@ -514,7 +555,7 @@
                 }
             });
         });
-        var _serialize = __webpack_require__(35);
+        var _serialize = __webpack_require__(36);
         Object.keys(_serialize).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -523,7 +564,7 @@
                 }
             });
         });
-        var _ready = __webpack_require__(34);
+        var _ready = __webpack_require__(35);
         Object.keys(_ready).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -558,7 +599,7 @@
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _receive = __webpack_require__(30);
+        var _receive = __webpack_require__(31);
         Object.keys(_receive).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -594,14 +635,14 @@
         Object.defineProperty(exports, "__esModule", {
             value: !0
         }), exports.Promise = exports.cleanUpWindow = void 0;
-        var _clean = __webpack_require__(27);
+        var _clean = __webpack_require__(28);
         Object.defineProperty(exports, "cleanUpWindow", {
             enumerable: !0,
             get: function() {
                 return _clean.cleanUpWindow;
             }
         }), exports.init = init;
-        var _public = __webpack_require__(38);
+        var _public = __webpack_require__(39);
         Object.keys(_public).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -818,7 +859,7 @@
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _bridge = __webpack_require__(23);
+        var _bridge = __webpack_require__(24);
         Object.keys(_bridge).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -827,7 +868,7 @@
                 }
             });
         });
-        var _child = __webpack_require__(24);
+        var _child = __webpack_require__(25);
         Object.keys(_child).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -845,7 +886,7 @@
                 }
             });
         });
-        var _parent = __webpack_require__(26);
+        var _parent = __webpack_require__(27);
         Object.keys(_parent).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -938,7 +979,7 @@
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _ie = __webpack_require__(28);
+        var _ie = __webpack_require__(29);
         Object.keys(_ie).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -1200,13 +1241,13 @@
             return target;
         };
         exports.sendMessage = sendMessage;
-        var _src = __webpack_require__(1), _src2 = __webpack_require__(2), _conf = __webpack_require__(0), _lib = __webpack_require__(4), _strategies = __webpack_require__(32);
+        var _src = __webpack_require__(1), _src2 = __webpack_require__(2), _conf = __webpack_require__(0), _lib = __webpack_require__(4), _strategies = __webpack_require__(33);
     }, function(module, exports, __webpack_require__) {
         "use strict";
         Object.defineProperty(exports, "__esModule", {
             value: !0
         });
-        var _weakmap = __webpack_require__(18);
+        var _weakmap = __webpack_require__(19);
         Object.defineProperty(exports, "WeakMap", {
             enumerable: !0,
             get: function() {
@@ -1231,6 +1272,18 @@
         }), exports.hasNativeWeakMap = hasNativeWeakMap;
     }, function(module, exports, __webpack_require__) {
         "use strict";
+        function safeIndexOf(collection, item) {
+            for (var i = 0; i < collection.length; i++) try {
+                if (collection[i] === item) return i;
+            } catch (err) {}
+            return -1;
+        }
+        function noop() {}
+        Object.defineProperty(exports, "__esModule", {
+            value: !0
+        }), exports.safeIndexOf = safeIndexOf, exports.noop = noop;
+    }, function(module, exports, __webpack_require__) {
+        "use strict";
         function _classCallCheck(instance, Constructor) {
             if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
         }
@@ -1249,7 +1302,7 @@
                 return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps), 
                 Constructor;
             };
-        }(), _src = __webpack_require__(1), _native = __webpack_require__(17), defineProperty = Object.defineProperty, counter = Date.now() % 1e9;
+        }(), _src = __webpack_require__(1), _native = __webpack_require__(17), _util = __webpack_require__(18), defineProperty = Object.defineProperty, counter = Date.now() % 1e9;
         exports.CrossDomainSafeWeakMap = function() {
             function CrossDomainSafeWeakMap() {
                 if (_classCallCheck(this, CrossDomainSafeWeakMap), counter += 1, this.name = "__weakmap_" + (1e9 * Math.random() >>> 0) + "__" + counter, 
@@ -1263,7 +1316,7 @@
                 value: function() {
                     for (var weakmap = this.weakmap, keys = this.keys, i = 0; i < keys.length; i++) {
                         var value = keys[i];
-                        if ((0, _src.isWindowClosed)(value)) {
+                        if ((0, _src.isWindow)(value) && (0, _src.isWindowClosed)(value)) {
                             if (weakmap) try {
                                 weakmap.delete(value);
                             } catch (err) {}
@@ -1276,7 +1329,7 @@
                 value: function(key) {
                     if ((0, _src.isWindow)(key)) return !1;
                     try {
-                        key && key.self, key && key[this.name];
+                        (0, _util.noop)(key && key.self), (0, _util.noop)(key && key[this.name]);
                     } catch (err) {
                         return !1;
                     }
@@ -1300,7 +1353,7 @@
                         });
                     } else {
                         this._cleanupClosedWindows();
-                        var keys = this.keys, values = this.values, index = keys.indexOf(key);
+                        var keys = this.keys, values = this.values, index = (0, _util.safeIndexOf)(keys, key);
                         -1 === index ? (keys.push(key), values.push(value)) : values[index] = value;
                     }
                 }
@@ -1316,7 +1369,7 @@
                     }
                     if (!this.isSafeToReadWrite(key)) {
                         this._cleanupClosedWindows();
-                        var keys = this.keys, index = keys.indexOf(key);
+                        var keys = this.keys, index = (0, _util.safeIndexOf)(keys, key);
                         if (-1 === index) return;
                         return this.values[index];
                     }
@@ -1338,7 +1391,7 @@
                         entry && entry[0] === key && (entry[0] = entry[1] = void 0);
                     } else {
                         this._cleanupClosedWindows();
-                        var keys = this.keys, index = keys.indexOf(key);
+                        var keys = this.keys, index = (0, _util.safeIndexOf)(keys, key);
                         -1 !== index && (keys.splice(index, 1), this.values.splice(index, 1));
                     }
                 }
@@ -1356,7 +1409,7 @@
                         var entry = key[this.name];
                         return !(!entry || entry[0] !== key);
                     }
-                    return this._cleanupClosedWindows(), -1 !== this.keys.indexOf(key);
+                    return this._cleanupClosedWindows(), -1 !== (0, _util.safeIndexOf)(this.keys, key);
                 }
             } ]), CrossDomainSafeWeakMap;
         }();
@@ -1365,9 +1418,10 @@
         function isRegex(item) {
             return "[object RegExp]" === Object.prototype.toString.call(item);
         }
+        function noop() {}
         Object.defineProperty(exports, "__esModule", {
             value: !0
-        }), exports.isRegex = isRegex;
+        }), exports.isRegex = isRegex, exports.noop = noop;
     }, function(module, exports, __webpack_require__) {
         "use strict";
         function dispatchPossiblyUnhandledError(err) {
@@ -1409,7 +1463,7 @@
                 return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps), 
                 Constructor;
             };
-        }(), _utils = __webpack_require__(22), _exceptions = __webpack_require__(20), ZalgoPromise = function() {
+        }(), _utils = __webpack_require__(23), _exceptions = __webpack_require__(21), ZalgoPromise = function() {
             function ZalgoPromise(handler) {
                 var _this = this;
                 if (_classCallCheck(this, ZalgoPromise), this.resolved = !1, this.rejected = !1, 
@@ -1721,34 +1775,38 @@
         function openTunnelToOpener() {
             return _src.ZalgoPromise.try(function() {
                 var opener = (0, _src2.getOpener)(window);
-                if (opener && (0, _common.needsBridge)({
-                    win: opener
-                })) return (0, _common.registerRemoteWindow)(opener), awaitRemoteBridgeForWindow(opener).then(function(bridge) {
-                    return bridge ? window.name ? bridge[_conf.CONSTANTS.WINDOW_PROPS.POSTROBOT].openTunnelToParent({
-                        name: window.name,
-                        source: window,
-                        canary: function() {},
-                        sendMessage: function(message) {
-                            try {
-                                (0, _lib.noop)(window);
-                            } catch (err) {
-                                return;
+                if (opener) {
+                    var domain = (0, _src2.getDomain)(opener);
+                    if (domain && (0, _common.needsBridge)({
+                        win: opener,
+                        domain: domain
+                    })) return (0, _common.registerRemoteWindow)(opener), awaitRemoteBridgeForWindow(opener).then(function(bridge) {
+                        return bridge ? window.name ? bridge[_conf.CONSTANTS.WINDOW_PROPS.POSTROBOT].openTunnelToParent({
+                            name: window.name,
+                            source: window,
+                            canary: function() {},
+                            sendMessage: function(message) {
+                                try {
+                                    (0, _lib.noop)(window);
+                                } catch (err) {
+                                    return;
+                                }
+                                window && !window.closed && (0, _drivers.receiveMessage)({
+                                    data: message,
+                                    origin: this.origin,
+                                    source: this.source
+                                });
                             }
-                            window && !window.closed && (0, _drivers.receiveMessage)({
-                                data: message,
-                                origin: this.origin,
-                                source: this.source
-                            });
-                        }
-                    }).then(function(_ref2) {
-                        var source = _ref2.source, origin = _ref2.origin, data = _ref2.data;
-                        if (source !== opener) throw new Error("Source does not match opener");
-                        (0, _common.registerRemoteSendMessage)(source, origin, data.sendMessage);
-                    }).catch(function(err) {
-                        throw (0, _common.rejectRemoteSendMessage)(opener, err), err;
-                    }) : (0, _common.rejectRemoteSendMessage)(opener, new Error("Can not register with opener: window does not have a name")) : (0, 
-                    _common.rejectRemoteSendMessage)(opener, new Error("Can not register with opener: no bridge found in opener"));
-                });
+                        }).then(function(_ref2) {
+                            var source = _ref2.source, origin = _ref2.origin, data = _ref2.data;
+                            if (source !== opener) throw new Error("Source does not match opener");
+                            (0, _common.registerRemoteSendMessage)(source, origin, data.sendMessage);
+                        }).catch(function(err) {
+                            throw (0, _common.rejectRemoteSendMessage)(opener, err), err;
+                        }) : (0, _common.rejectRemoteSendMessage)(opener, new Error("Can not register with opener: window does not have a name")) : (0, 
+                        _common.rejectRemoteSendMessage)(opener, new Error("Can not register with opener: no bridge found in opener"));
+                    });
+                }
             });
         }
         Object.defineProperty(exports, "__esModule", {
@@ -2051,7 +2109,7 @@
         };
         exports.receiveMessage = receiveMessage, exports.messageListener = messageListener, 
         exports.listenForMessages = listenForMessages;
-        var _src = __webpack_require__(1), _conf = __webpack_require__(0), _lib = __webpack_require__(4), _global = __webpack_require__(3), _types = __webpack_require__(31);
+        var _src = __webpack_require__(1), _conf = __webpack_require__(0), _lib = __webpack_require__(4), _global = __webpack_require__(3), _types = __webpack_require__(32);
         _global.global.receivedMessages = _global.global.receivedMessages || [];
     }, function(module, exports, __webpack_require__) {
         "use strict";
@@ -2480,7 +2538,7 @@
         Object.defineProperty(exports, "__esModule", {
             value: !0
         }), exports.bridge = exports.parent = void 0;
-        var _client = __webpack_require__(36);
+        var _client = __webpack_require__(37);
         Object.keys(_client).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -2489,7 +2547,7 @@
                 }
             });
         });
-        var _server = __webpack_require__(39);
+        var _server = __webpack_require__(40);
         Object.keys(_server).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -2498,7 +2556,7 @@
                 }
             });
         });
-        var _config = __webpack_require__(37);
+        var _config = __webpack_require__(38);
         Object.keys(_config).forEach(function(key) {
             "default" !== key && "__esModule" !== key && Object.defineProperty(exports, key, {
                 enumerable: !0,
@@ -2509,7 +2567,7 @@
         });
         var _src = __webpack_require__(1);
         exports.parent = (0, _src.getAncestor)(), exports.bridge = void 0;
-        exports.bridge = __webpack_require__(25);
+        exports.bridge = __webpack_require__(26);
     }, function(module, exports, __webpack_require__) {
         "use strict";
         function listen(options) {
