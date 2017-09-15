@@ -26,4 +26,4 @@ npm version ${1-patch};
 
 git push;
 git push --tags;
-npm publish;
+#npm publish;

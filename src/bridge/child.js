@@ -66,7 +66,13 @@ export function openTunnelToOpener() : ZalgoPromise<void> {
             return;
         }
 
-        if (!needsBridge({ win: opener })) {
+      let domain = getDomain(opener);
+
+      if (!domain) {
+            return;
+      }
+
+      if (!needsBridge({ win: opener, domain: domain })) {
             return;
         }
 
