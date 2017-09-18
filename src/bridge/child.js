@@ -66,11 +66,15 @@ export function openTunnelToOpener() : ZalgoPromise<void> {
             return;
         }
 
-      let domain = getDomain(opener);
-
-      if (!domain) {
-            return;
+      // Try to obtain domain of opener. This will fail if opener is not on same domain.
+      // If it is on same domain, then we'll pass opener domain into needsBridge which will return false.
+      let domain;
+      try {
+        domain = getDomain(opener);
+      } catch (e) {
+        domain = null;
       }
+
 
       if (!needsBridge({ win: opener, domain: domain })) {
             return;

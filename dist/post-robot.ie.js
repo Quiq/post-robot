@@ -1776,8 +1776,13 @@
             return _src.ZalgoPromise.try(function() {
                 var opener = (0, _src2.getOpener)(window);
                 if (opener) {
-                    var domain = (0, _src2.getDomain)(opener);
-                    if (domain && (0, _common.needsBridge)({
+                    var domain = void 0;
+                    try {
+                        domain = (0, _src2.getDomain)(opener);
+                    } catch (e) {
+                        domain = null;
+                    }
+                    if ((0, _common.needsBridge)({
                         win: opener,
                         domain: domain
                     })) return (0, _common.registerRemoteWindow)(opener), awaitRemoteBridgeForWindow(opener).then(function(bridge) {
