@@ -3092,40 +3092,49 @@
             function openTunnelToOpener() {
                 return src.a.try(function() {
                     var opener = Object(cross_domain_utils_src.g)(window);
-                    if (opener && needsBridge({
-                        win: opener
-                    })) {
-                        registerRemoteWindow(opener);
-                        return awaitRemoteBridgeForWindow(opener).then(function(bridge) {
-                            return bridge ? window.name ? bridge[conf.j.POSTROBOT].openTunnelToParent({
-                                name: window.name,
-                                source: window,
-                                canary: function() {},
-                                sendMessage: function(message) {
-                                    try {
-                                        Object(belter_src.e)(window);
-                                    } catch (err) {
-                                        return;
+                    if (opener) {
+                        var domain = void 0;
+                        try {
+                            domain = Object(cross_domain_utils_src.d)(opener);
+                        } catch (e) {
+                            domain = null;
+                        }
+                        if (needsBridge({
+                            win: opener,
+                            domain: domain
+                        })) {
+                            registerRemoteWindow(opener);
+                            return awaitRemoteBridgeForWindow(opener).then(function(bridge) {
+                                return bridge ? window.name ? bridge[conf.j.POSTROBOT].openTunnelToParent({
+                                    name: window.name,
+                                    source: window,
+                                    canary: function() {},
+                                    sendMessage: function(message) {
+                                        try {
+                                            Object(belter_src.e)(window);
+                                        } catch (err) {
+                                            return;
+                                        }
+                                        if (window && !window.closed) try {
+                                            global.a.receiveMessage({
+                                                data: message,
+                                                origin: this.origin,
+                                                source: this.source
+                                            });
+                                        } catch (err) {
+                                            src.a.reject(err);
+                                        }
                                     }
-                                    if (window && !window.closed) try {
-                                        global.a.receiveMessage({
-                                            data: message,
-                                            origin: this.origin,
-                                            source: this.source
-                                        });
-                                    } catch (err) {
-                                        src.a.reject(err);
-                                    }
-                                }
-                            }).then(function(_ref) {
-                                var source = _ref.source, origin = _ref.origin, data = _ref.data;
-                                if (source !== opener) throw new Error("Source does not match opener");
-                                registerRemoteSendMessage(source, origin, data.sendMessage);
-                            }).catch(function(err) {
-                                rejectRemoteSendMessage(opener, err);
-                                throw err;
-                            }) : rejectRemoteSendMessage(opener, new Error("Can not register with opener: window does not have a name")) : rejectRemoteSendMessage(opener, new Error("Can not register with opener: no bridge found in opener"));
-                        });
+                                }).then(function(_ref) {
+                                    var source = _ref.source, origin = _ref.origin, data = _ref.data;
+                                    if (source !== opener) throw new Error("Source does not match opener");
+                                    registerRemoteSendMessage(source, origin, data.sendMessage);
+                                }).catch(function(err) {
+                                    rejectRemoteSendMessage(opener, err);
+                                    throw err;
+                                }) : rejectRemoteSendMessage(opener, new Error("Can not register with opener: window does not have a name")) : rejectRemoteSendMessage(opener, new Error("Can not register with opener: no bridge found in opener"));
+                            });
+                        }
                     }
                 });
             }
