@@ -18,7 +18,7 @@ export const MESSAGE_NAME = {
 };
 
 export const WINDOW_PROP = {
-    POSTROBOT: ('__postRobot__' : '__postRobot__')
+    POSTROBOT: ('__postRobot__quiq__' : '__postRobot__quiq__')
 };
 
 export const SEND_STRATEGY = {

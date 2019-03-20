@@ -38,27 +38,783 @@
         __webpack_require__.p = "";
         return __webpack_require__(__webpack_require__.s = "./src/index.js");
     }({
-        "./node_modules/belter/src/css.js": function(module, __webpack_exports__, __webpack_require__) {
+        "./node_modules/belter/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
             "use strict";
-        },
-        "./node_modules/belter/src/decorators.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/belter/src/util.js");
-        },
-        "./node_modules/belter/src/device.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_exports__.a = function() {
-                return !!(window.navigator.mockUserAgent || window.navigator.userAgent).match(/Android|webOS|iPhone|iPad|iPod|bada|Symbian|Palm|CriOS|BlackBerry|IEMobile|WindowsMobile|Opera Mini/i);
+            function getUserAgent() {
+                return window.navigator.mockUserAgent || window.navigator.userAgent;
+            }
+            function isDevice() {
+                return !!getUserAgent().match(/Android|webOS|iPhone|iPad|iPod|bada|Symbian|Palm|CriOS|BlackBerry|IEMobile|WindowsMobile|Opera Mini/i);
+            }
+            function isWebView() {
+                var userAgent = getUserAgent();
+                return /(iPhone|iPod|iPad|Macintosh).*AppleWebKit(?!.*Safari)/i.test(userAgent) || /\bwv\b/.test(userAgent) || /Android.*Version\/(\d)\.(\d)/i.test(userAgent);
+            }
+            function isStandAlone() {
+                return !0 === window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
+            }
+            function isFacebookWebView() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return -1 !== ua.indexOf("FBAN") || -1 !== ua.indexOf("FBAV");
+            }
+            function isFirefoxIOS() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /FxiOS/i.test(ua);
+            }
+            function isEdgeIOS() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /EdgiOS/i.test(ua);
+            }
+            function isOperaMini() {
+                return (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent()).indexOf("Opera Mini") > -1;
+            }
+            function isAndroid() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /Android/.test(ua);
+            }
+            function isIos() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /iPhone|iPod|iPad/.test(ua);
+            }
+            function isGoogleSearchApp() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /\bGSA\b/.test(ua);
+            }
+            function isQQBrowser() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return /QQBrowser/.test(ua);
+            }
+            function isIosWebview() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return !!isIos(ua) && (!!isGoogleSearchApp(ua) || /.+AppleWebKit(?!.*Safari)/.test(ua));
+            }
+            function isAndroidWebview() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return !!isAndroid(ua) && /Version\/[\d.]+/.test(ua) && !isOperaMini(ua);
+            }
+            function device_isIE() {
+                return !!window.document.documentMode || Boolean(window.navigator && window.navigator.userAgent && /Edge|MSIE|rv:11/i.test(window.navigator.userAgent));
+            }
+            function isIECompHeader() {
+                var mHttp = window.document.querySelector('meta[http-equiv="X-UA-Compatible"]'), mContent = window.document.querySelector('meta[content="IE=edge"]');
+                return !(!mHttp || !mContent);
+            }
+            function isElectron() {
+                return !("undefined" == typeof process || !process.versions || !process.versions.electron);
+            }
+            function isIEIntranet() {
+                if (window.document.documentMode) try {
+                    var status = window.status;
+                    window.status = "testIntranetMode";
+                    if ("testIntranetMode" === window.status) {
+                        window.status = status;
+                        return !0;
+                    }
+                    return !1;
+                } catch (err) {
+                    return !1;
+                }
+                return !1;
+            }
+            function isMacOsCna() {
+                var userAgent = getUserAgent();
+                return /Macintosh.*AppleWebKit(?!.*Safari)/i.test(userAgent);
+            }
+            function supportsPopups() {
+                var ua = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : getUserAgent();
+                return !(isIosWebview(ua) || isAndroidWebview(ua) || isOperaMini(ua) || isFirefoxIOS(ua) || isEdgeIOS(ua) || isFacebookWebView(ua) || isQQBrowser(ua) || isElectron() || isMacOsCna() || isStandAlone());
+            }
+            var src = __webpack_require__("./node_modules/zalgo-promise/src/index.js"), cross_domain_utils_src = __webpack_require__("./node_modules/cross-domain-utils/src/index.js"), cross_domain_safe_weakmap_src = __webpack_require__("./node_modules/cross-domain-safe-weakmap/src/index.js"), _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
+                return typeof obj;
+            } : function(obj) {
+                return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
             };
-        },
-        "./node_modules/belter/src/dom.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/zalgo-promise/src/index.js"), __webpack_require__("./node_modules/cross-domain-utils/src/index.js"), 
-            __webpack_require__("./node_modules/cross-domain-safe-weakmap/src/index.js");
-            var util = __webpack_require__("./node_modules/belter/src/util.js");
-            __webpack_require__("./node_modules/belter/src/device.js");
-            __webpack_exports__.b = function isLocalStorageEnabled() {
-                return Object(util.e)(isLocalStorageEnabled, function() {
+            function base64encode(str) {
+                if ("function" == typeof btoa) return btoa(str);
+                if ("undefined" != typeof Buffer) return Buffer.from(str, "utf8").toString("base64");
+                throw new Error("Can not find window.btoa or Buffer");
+            }
+            function base64decode(str) {
+                if ("undefined" != typeof window && "function" == typeof window.atob) return window.atob(str);
+                if ("undefined" != typeof Buffer) return Buffer.from(str, "base64").toString("utf8");
+                throw new Error("Can not find window.atob or Buffer");
+            }
+            function uniqueID() {
+                var chars = "0123456789abcdef";
+                return "xxxxxxxxxx".replace(/./g, function() {
+                    return chars.charAt(Math.floor(Math.random() * chars.length));
+                }) + "_" + base64encode(new Date().toISOString().slice(11, 19).replace("T", ".")).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+            }
+            function getGlobal() {
+                if ("undefined" != typeof window) return window;
+                if ("undefined" != typeof window) return window;
+                if ("undefined" != typeof global) return global;
+                throw new Error("No global found");
+            }
+            var objectIDs = void 0;
+            function getObjectID(obj) {
+                objectIDs = objectIDs || new cross_domain_safe_weakmap_src.a();
+                if (null === obj || void 0 === obj || "object" !== (void 0 === obj ? "undefined" : _typeof(obj)) && "function" != typeof obj) throw new Error("Invalid object");
+                var uid = objectIDs.get(obj);
+                if (!uid) {
+                    uid = (void 0 === obj ? "undefined" : _typeof(obj)) + ":" + uniqueID();
+                    objectIDs.set(obj, uid);
+                }
+                return uid;
+            }
+            function serializeArgs(args) {
+                try {
+                    return JSON.stringify(Array.prototype.slice.call(args), function(subkey, val) {
+                        return "function" == typeof val ? "memoize[" + getObjectID(val) + "]" : val;
+                    });
+                } catch (err) {
+                    throw new Error("Arguments not serializable -- can not be used to memoize");
+                }
+            }
+            function memoize(method) {
+                var _this = this, options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, cacheMap = new cross_domain_safe_weakmap_src.a();
+                function memoizedFunction() {
+                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+                    var cache = cacheMap.getOrSet(options.thisNamespace ? this : method, function() {
+                        return {};
+                    }), key = serializeArgs(args), cacheTime = options.time;
+                    cache[key] && cacheTime && Date.now() - cache[key].time < cacheTime && delete cache[key];
+                    if (cache[key]) return cache[key].value;
+                    var time = Date.now(), value = method.apply(this, arguments);
+                    cache[key] = {
+                        time: time,
+                        value: value
+                    };
+                    return cache[key].value;
+                }
+                memoizedFunction.reset = function() {
+                    cacheMap.delete(options.thisNamespace ? _this : method);
+                };
+                options.name && (memoizedFunction.displayName = options.name + ":memoized");
+                return memoizedFunction;
+            }
+            function memoizePromise(method) {
+                var cache = {};
+                function memoizedPromiseFunction() {
+                    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
+                    var key = serializeArgs(args);
+                    if (cache.hasOwnProperty(key)) return cache[key];
+                    cache[key] = method.apply(this, arguments).finally(function() {
+                        delete cache[key];
+                    });
+                    return cache[key];
+                }
+                memoizedPromiseFunction.reset = function() {
+                    cache = {};
+                };
+                return memoizedPromiseFunction;
+            }
+            function promisify(method) {
+                var options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+                function promisifiedFunction() {
+                    return src.a.try(method, this, arguments);
+                }
+                options.name && (promisifiedFunction.displayName = options.name + ":promisified");
+                return promisifiedFunction;
+            }
+            function inlineMemoize(method, logic) {
+                var args = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : [], cache = method.__inline_memoize_cache__ = method.__inline_memoize_cache__ || {}, key = serializeArgs(args);
+                return cache.hasOwnProperty(key) ? cache[key] : cache[key] = logic.apply(void 0, args);
+            }
+            function noop() {}
+            function once(method) {
+                var called = !1;
+                return function() {
+                    if (!called) {
+                        called = !0;
+                        return method.apply(this, arguments);
+                    }
+                };
+            }
+            function hashStr(str) {
+                for (var hash = 0, i = 0; i < str.length; i++) hash += str[i].charCodeAt(0) * Math.pow(i % 10 + 1, 5);
+                return Math.floor(Math.pow(Math.sqrt(hash), 5));
+            }
+            function strHashStr(str) {
+                for (var hash = "", i = 0; i < str.length; i++) {
+                    var total = str[i].charCodeAt(0) * i;
+                    str[i + 1] && (total += str[i + 1].charCodeAt(0) * (i - 1));
+                    hash += String.fromCharCode(97 + Math.abs(total) % 26);
+                }
+                return hash;
+            }
+            function match(str, pattern) {
+                var regmatch = str.match(pattern);
+                if (regmatch) return regmatch[1];
+            }
+            function awaitKey(obj, key) {
+                return new src.a(function(resolve) {
+                    var value = obj[key];
+                    if (value) return resolve(value);
+                    delete obj[key];
+                    Object.defineProperty(obj, key, {
+                        configurable: !0,
+                        set: function(item) {
+                            (value = item) && resolve(value);
+                        },
+                        get: function() {
+                            return value;
+                        }
+                    });
+                });
+            }
+            function stringifyError(err) {
+                var level = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1;
+                if (level >= 3) return "stringifyError stack overflow";
+                try {
+                    if (!err) return "<unknown error: " + Object.prototype.toString.call(err) + ">";
+                    if ("string" == typeof err) return err;
+                    if (err instanceof Error) {
+                        var stack = err && err.stack, message = err && err.message;
+                        if (stack && message) return -1 !== stack.indexOf(message) ? stack : message + "\n" + stack;
+                        if (stack) return stack;
+                        if (message) return message;
+                    }
+                    return "function" == typeof err.toString ? err.toString() : Object.prototype.toString.call(err);
+                } catch (newErr) {
+                    return "Error while stringifying error: " + stringifyError(newErr, level + 1);
+                }
+            }
+            function stringifyErrorMessage(err) {
+                var defaultMessage = "<unknown error: " + Object.prototype.toString.call(err) + ">";
+                return err ? err instanceof Error ? err.message || defaultMessage : "string" == typeof err.message && err.message || defaultMessage : defaultMessage;
+            }
+            function stringify(item) {
+                return "string" == typeof item ? item : item && "function" == typeof item.toString ? item.toString() : Object.prototype.toString.call(item);
+            }
+            function domainMatches(hostname, domain) {
+                var index = (hostname = hostname.split("://")[1]).indexOf(domain);
+                return -1 !== index && hostname.slice(index) === domain;
+            }
+            function patchMethod(obj, name, handler) {
+                var original = obj[name];
+                obj[name] = function() {
+                    var _this2 = this, _arguments = arguments;
+                    return handler({
+                        context: this,
+                        args: Array.prototype.slice.call(arguments),
+                        original: original,
+                        callOriginal: function() {
+                            return original.apply(_this2, _arguments);
+                        }
+                    });
+                };
+            }
+            function extend(obj, source) {
+                if (!source) return obj;
+                if (Object.assign) return Object.assign(obj, source);
+                for (var key in source) source.hasOwnProperty(key) && (obj[key] = source[key]);
+                return obj;
+            }
+            function values(obj) {
+                var result = [];
+                for (var key in obj) obj.hasOwnProperty(key) && result.push(obj[key]);
+                return result;
+            }
+            function perc(pixels, percentage) {
+                return Math.round(pixels * percentage / 100);
+            }
+            function min() {
+                return Math.min.apply(Math, arguments);
+            }
+            function max() {
+                return Math.max.apply(Math, arguments);
+            }
+            function regexMap(str, regexp, handler) {
+                var results = [];
+                str.replace(regexp, function(item) {
+                    results.push(handler ? handler.apply(null, arguments) : item);
+                });
+                return results;
+            }
+            function svgToBase64(svg) {
+                return "data:image/svg+xml;base64," + base64encode(svg);
+            }
+            function objFilter(obj) {
+                var filter = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : Boolean, result = {};
+                for (var key in obj) obj.hasOwnProperty(key) && filter(obj[key], key) && (result[key] = obj[key]);
+                return result;
+            }
+            function identity(item) {
+                return item;
+            }
+            function regexTokenize(text, regexp) {
+                var result = [];
+                text.replace(regexp, function(token) {
+                    result.push(token);
+                    return "";
+                });
+                return result;
+            }
+            function promiseDebounce(method) {
+                var delay = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 50, promise = void 0, timeout = void 0;
+                return function() {
+                    timeout && clearTimeout(timeout);
+                    var localPromise = promise = promise || new src.a();
+                    timeout = setTimeout(function() {
+                        promise = null;
+                        timeout = null;
+                        src.a.try(method).then(function(result) {
+                            localPromise.resolve(result);
+                        }, function(err) {
+                            localPromise.reject(err);
+                        });
+                    }, delay);
+                    return localPromise;
+                };
+            }
+            function safeInterval(method, time) {
+                var timeout = void 0;
+                !function loop() {
+                    timeout = setTimeout(function() {
+                        method();
+                        loop();
+                    }, time);
+                }();
+                return {
+                    cancel: function() {
+                        clearTimeout(timeout);
+                    }
+                };
+            }
+            function isInteger(str) {
+                return Boolean(str.match(/^[0-9]+$/));
+            }
+            function isFloat(str) {
+                return Boolean(str.match(/^[0-9]+\.[0-9]+$/));
+            }
+            function serializePrimitive(value) {
+                return value.toString();
+            }
+            function deserializePrimitive(value) {
+                return "true" === value || "false" !== value && (isInteger(value) ? parseInt(value, 10) : isFloat(value) ? parseFloat(value) : value);
+            }
+            function dotify(obj) {
+                var prefix = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "", newobj = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
+                prefix = prefix ? prefix + "." : prefix;
+                for (var key in obj) obj.hasOwnProperty(key) && void 0 !== obj[key] && null !== obj[key] && "function" != typeof obj[key] && (obj[key] && Array.isArray(obj[key]) && obj[key].length && obj[key].every(function(val) {
+                    return "object" !== (void 0 === val ? "undefined" : _typeof(val));
+                }) ? newobj["" + prefix + key + "[]"] = obj[key].join(",") : obj[key] && "object" === _typeof(obj[key]) ? newobj = dotify(obj[key], "" + prefix + key, newobj) : newobj["" + prefix + key] = serializePrimitive(obj[key]));
+                return newobj;
+            }
+            function undotify(obj) {
+                var result = {};
+                for (var key in obj) if (obj.hasOwnProperty(key) && "string" == typeof obj[key]) {
+                    var value = obj[key];
+                    if (key.match(/^.+\[\]$/)) {
+                        key = key.slice(0, key.length - 2);
+                        value = value.split(",").map(deserializePrimitive);
+                    } else value = deserializePrimitive(value);
+                    for (var keyResult = result, parts = key.split("."), i = 0; i < parts.length; i++) {
+                        var part = parts[i], isLast = i + 1 === parts.length, isIndex = !isLast && isInteger(parts[i + 1]);
+                        isLast ? keyResult[part] = value : keyResult = keyResult[part] = keyResult[part] || (isIndex ? [] : {});
+                    }
+                }
+                return result;
+            }
+            function eventEmitter() {
+                var triggered = {}, handlers = {};
+                return {
+                    on: function(eventName, handler) {
+                        var handlerList = handlers[eventName] = handlers[eventName] || [];
+                        handlerList.push(handler);
+                        var cancelled = !1;
+                        return {
+                            cancel: function() {
+                                if (!cancelled) {
+                                    cancelled = !0;
+                                    handlerList.splice(handlerList.indexOf(handler), 1);
+                                }
+                            }
+                        };
+                    },
+                    once: function(eventName, handler) {
+                        var listener = this.on(eventName, function() {
+                            listener.cancel();
+                            handler();
+                        });
+                        return listener;
+                    },
+                    trigger: function(eventName) {
+                        for (var _len3 = arguments.length, args = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) args[_key3 - 1] = arguments[_key3];
+                        var handlerList = handlers[eventName], promises = [];
+                        if (handlerList) for (var _loop = function(_i2, _length2) {
+                            var handler = handlerList[_i2];
+                            promises.push(src.a.try(function() {
+                                return handler.apply(void 0, args);
+                            }));
+                        }, _i2 = 0, _length2 = null == handlerList ? 0 : handlerList.length; _i2 < _length2; _i2++) _loop(_i2);
+                        return src.a.all(promises).then(noop);
+                    },
+                    triggerOnce: function(eventName) {
+                        if (triggered[eventName]) return src.a.resolve();
+                        triggered[eventName] = !0;
+                        for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) args[_key4 - 1] = arguments[_key4];
+                        return this.trigger.apply(this, [ eventName ].concat(args));
+                    }
+                };
+            }
+            function camelToDasherize(string) {
+                return string.replace(/([A-Z])/g, function(g) {
+                    return "-" + g.toLowerCase();
+                });
+            }
+            function dasherizeToCamel(string) {
+                return string.replace(/-([a-z])/g, function(g) {
+                    return g[1].toUpperCase();
+                });
+            }
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+            }
+            function get(item, path, def) {
+                if (!path) return def;
+                for (var pathParts = path.split("."), i = 0; i < pathParts.length; i++) {
+                    if ("object" !== (void 0 === item ? "undefined" : _typeof(item)) || null === item) return def;
+                    item = item[pathParts[i]];
+                }
+                return void 0 === item ? def : item;
+            }
+            function safeTimeout(method, time) {
+                var interval = safeInterval(function() {
+                    if ((time -= 100) <= 0) {
+                        interval.cancel();
+                        method();
+                    }
+                }, 100);
+            }
+            function defineLazyProp(obj, key, getter) {
+                if (Array.isArray(obj)) {
+                    if ("number" != typeof key) throw new TypeError("Array key must be number");
+                } else if ("object" === (void 0 === obj ? "undefined" : _typeof(obj)) && null !== obj && "string" != typeof key) throw new TypeError("Object key must be string");
+                Object.defineProperty(obj, key, {
+                    configurable: !0,
+                    enumerable: !0,
+                    get: function() {
+                        delete obj[key];
+                        var value = getter();
+                        obj[key] = value;
+                        return value;
+                    },
+                    set: function(value) {
+                        delete obj[key];
+                        obj[key] = value;
+                    }
+                });
+            }
+            function isObject(item) {
+                return "object" === (void 0 === item ? "undefined" : _typeof(item)) && null !== item;
+            }
+            function isObjectObject(obj) {
+                return isObject(obj) && "[object Object]" === Object.prototype.toString.call(obj);
+            }
+            function isPlainObject(obj) {
+                if (!isObjectObject(obj)) return !1;
+                var constructor = obj.constructor;
+                if ("function" != typeof constructor) return !1;
+                var prototype = constructor.prototype;
+                return !!isObjectObject(prototype) && !!prototype.hasOwnProperty("isPrototypeOf");
+            }
+            function replaceObject(item, replacer) {
+                var fullKey = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : "";
+                if (Array.isArray(item)) {
+                    for (var _length3 = item.length, result = [], _loop2 = function(i) {
+                        defineLazyProp(result, i, function() {
+                            var itemKey = fullKey ? fullKey + "." + i : "" + i, el = item[i], child = replacer(el, i, itemKey);
+                            (isPlainObject(child) || Array.isArray(child)) && (child = replaceObject(child, replacer, itemKey));
+                            return child;
+                        });
+                    }, i = 0; i < _length3; i++) _loop2(i);
+                    return result;
+                }
+                if (isPlainObject(item)) {
+                    var _result = {}, _loop3 = function(key) {
+                        if (!item.hasOwnProperty(key)) return "continue";
+                        defineLazyProp(_result, key, function() {
+                            var itemKey = fullKey ? fullKey + "." + key : "" + key, el = item[key], child = replacer(el, key, itemKey);
+                            (isPlainObject(child) || Array.isArray(child)) && (child = replaceObject(child, replacer, itemKey));
+                            return child;
+                        });
+                    };
+                    for (var key in item) _loop3(key);
+                    return _result;
+                }
+                throw new Error("Pass an object or array");
+            }
+            function copyProp(source, target, name, def) {
+                if (source.hasOwnProperty(name)) {
+                    var descriptor = Object.getOwnPropertyDescriptor(source, name);
+                    Object.defineProperty(target, name, descriptor);
+                } else target[name] = def;
+            }
+            function regex(pattern, string) {
+                var start = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 0;
+                "string" == typeof pattern && (pattern = new RegExp(pattern));
+                var result = string.slice(start).match(pattern);
+                if (result) {
+                    var index = result.index, regmatch = result[0];
+                    return {
+                        text: regmatch,
+                        groups: result.slice(1),
+                        start: start + index,
+                        end: start + index + regmatch.length,
+                        length: regmatch.length,
+                        replace: function(text) {
+                            return regmatch ? "" + regmatch.slice(0, start + index) + text + regmatch.slice(index + regmatch.length) : "";
+                        }
+                    };
+                }
+            }
+            function regexAll(pattern, string) {
+                for (var matches = [], start = 0; ;) {
+                    var regmatch = regex(pattern, string, start);
+                    if (!regmatch) break;
+                    matches.push(regmatch);
+                    start = match.end;
+                }
+                return matches;
+            }
+            function isDefined(value) {
+                return null !== value && void 0 !== value;
+            }
+            function cycle(method) {
+                return src.a.try(method).then(function() {
+                    return cycle(method);
+                });
+            }
+            function debounce(method) {
+                var time = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 100, timeout = void 0;
+                return function() {
+                    var _this3 = this, _arguments2 = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function() {
+                        return method.apply(_this3, _arguments2);
+                    }, time);
+                };
+            }
+            function isRegex(item) {
+                return "[object RegExp]" === Object.prototype.toString.call(item);
+            }
+            var util_weakMapMemoize = function(method) {
+                var weakmap = new cross_domain_safe_weakmap_src.a();
+                return function(arg) {
+                    var _this4 = this;
+                    return weakmap.getOrSet(arg, function() {
+                        return method.call(_this4, arg);
+                    });
+                };
+            }, util_weakMapMemoizePromise = function(method) {
+                var weakmap = new cross_domain_safe_weakmap_src.a();
+                return function(arg) {
+                    var _this5 = this;
+                    return weakmap.getOrSet(arg, function() {
+                        return method.call(_this5, arg).finally(function() {
+                            weakmap.delete(arg);
+                        });
+                    });
+                };
+            };
+            function getOrSet(obj, key, getter) {
+                if (obj.hasOwnProperty(key)) return obj[key];
+                var val = getter();
+                obj[key] = val;
+                return val;
+            }
+            function cleanup(obj) {
+                var tasks = [], cleaned = !1;
+                return {
+                    set: function(name, item) {
+                        if (!cleaned) {
+                            obj[name] = item;
+                            this.register(function() {
+                                delete obj[name];
+                            });
+                        }
+                        return item;
+                    },
+                    register: function(method) {
+                        cleaned ? method() : tasks.push(once(method));
+                    },
+                    all: function() {
+                        var results = [];
+                        cleaned = !0;
+                        for (;tasks.length; ) {
+                            var task = tasks.pop();
+                            results.push(task());
+                        }
+                        return src.a.all(results).then(noop);
+                    }
+                };
+            }
+            function tryCatch(fn) {
+                var result = void 0, error = void 0;
+                try {
+                    result = fn();
+                } catch (err) {
+                    error = err;
+                }
+                return {
+                    result: result,
+                    error: error
+                };
+            }
+            function removeFromArray(arr, item) {
+                var index = arr.indexOf(item);
+                -1 !== index && arr.splice(index, 1);
+            }
+            function assertExists(name, thing) {
+                if (null === thing || void 0 === thing) throw new Error("Expected " + name + " to be present");
+                return thing;
+            }
+            var KEY_CODES = {
+                ENTER: 13
+            }, dom__typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
+                return typeof obj;
+            } : function(obj) {
+                return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+            }, _extends = Object.assign || function(target) {
+                for (var i = 1; i < arguments.length; i++) {
+                    var source = arguments[i];
+                    for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+                }
+                return target;
+            };
+            function isDocumentReady() {
+                return Boolean(document.body) && "complete" === document.readyState;
+            }
+            function urlEncode(str) {
+                return str.replace(/\?/g, "%3F").replace(/&/g, "%26").replace(/#/g, "%23").replace(/\+/g, "%2B");
+            }
+            function waitForWindowReady() {
+                return inlineMemoize(waitForWindowReady, function() {
+                    return new src.a(function(resolve) {
+                        isDocumentReady() && resolve();
+                        window.addEventListener("load", function() {
+                            return resolve();
+                        });
+                    });
+                });
+            }
+            function waitForDocumentReady() {
+                return inlineMemoize(waitForDocumentReady, function() {
+                    return new src.a(function(resolve) {
+                        if (isDocumentReady()) return resolve();
+                        var interval = setInterval(function() {
+                            if (isDocumentReady()) {
+                                clearInterval(interval);
+                                return resolve();
+                            }
+                        }, 10);
+                    });
+                });
+            }
+            function waitForDocumentBody() {
+                return waitForDocumentReady().then(function() {
+                    if (document.body) return document.body;
+                    throw new Error("Document ready but document.body not present");
+                });
+            }
+            function parseQuery(queryString) {
+                return inlineMemoize(parseQuery, function() {
+                    var params = {};
+                    if (!queryString) return params;
+                    if (-1 === queryString.indexOf("=")) return params;
+                    for (var _i2 = 0, _queryString$split2 = queryString.split("&"), _length2 = null == _queryString$split2 ? 0 : _queryString$split2.length; _i2 < _length2; _i2++) {
+                        var pair = _queryString$split2[_i2];
+                        (pair = pair.split("="))[0] && pair[1] && (params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]));
+                    }
+                    return params;
+                }, [ queryString ]);
+            }
+            function getQueryParam(name) {
+                return parseQuery(window.location.search.slice(1))[name];
+            }
+            function urlWillRedirectPage(url) {
+                return -1 === url.indexOf("#") || 0 !== url.indexOf("#") && url.split("#")[0] !== window.location.href.split("#")[0];
+            }
+            function formatQuery() {
+                var obj = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+                return Object.keys(obj).filter(function(key) {
+                    return "string" == typeof obj[key];
+                }).map(function(key) {
+                    return urlEncode(key) + "=" + urlEncode(obj[key]);
+                }).join("&");
+            }
+            function extendQuery(originalQuery) {
+                var props = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+                return props && Object.keys(props).length ? formatQuery(_extends({}, parseQuery(originalQuery), props)) : originalQuery;
+            }
+            function extendUrl(url) {
+                var originalHash, options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, query = options.query || {}, hash = options.hash || {}, originalUrl = void 0, _url$split = url.split("#");
+                originalUrl = _url$split[0];
+                originalHash = _url$split[1];
+                var _originalUrl$split = originalUrl.split("?");
+                originalUrl = _originalUrl$split[0];
+                var queryString = extendQuery(_originalUrl$split[1], query), hashString = extendQuery(originalHash, hash);
+                queryString && (originalUrl = originalUrl + "?" + queryString);
+                hashString && (originalUrl = originalUrl + "#" + hashString);
+                return originalUrl;
+            }
+            function redirect(url) {
+                var win = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : window;
+                return new src.a(function(resolve) {
+                    win.location = url;
+                    urlWillRedirectPage(url) || resolve();
+                });
+            }
+            function hasMetaViewPort() {
+                var meta = document.querySelector("meta[name=viewport]");
+                return !(isDevice() && window.screen.width < 660 && !meta);
+            }
+            function isElementVisible(el) {
+                return Boolean(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+            }
+            function enablePerformance() {
+                return inlineMemoize(enablePerformance, function() {
+                    return Boolean(window.performance && performance.now && performance.timing && performance.timing.connectEnd && performance.timing.navigationStart && Math.abs(performance.now() - Date.now()) > 1e3 && performance.now() - (performance.timing.connectEnd - performance.timing.navigationStart) > 0);
+                });
+            }
+            function getPageRenderTime() {
+                return waitForDocumentReady().then(function() {
+                    if (enablePerformance()) {
+                        var timing = window.performance.timing;
+                        return timing.connectEnd && timing.domInteractive ? timing.domInteractive - timing.connectEnd : void 0;
+                    }
+                });
+            }
+            function htmlEncode() {
+                return (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "").toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/\//g, "&#x2F;");
+            }
+            function isBrowser() {
+                return "undefined" != typeof window;
+            }
+            function querySelectorAll(selector) {
+                var doc = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : window.document;
+                return Array.prototype.slice.call(doc.querySelectorAll(selector));
+            }
+            function onClick(element, handler) {
+                element.addEventListener("touchstart", noop);
+                element.addEventListener("click", handler);
+                element.addEventListener("keypress", function(event) {
+                    if (event.keyCode === KEY_CODES.ENTER) return handler(event);
+                });
+            }
+            function getScript(_ref) {
+                var _ref$host = _ref.host, host = void 0 === _ref$host ? window.location.host : _ref$host, path = _ref.path;
+                return inlineMemoize(getScript, function() {
+                    for (var url = "" + host + path, scripts = Array.prototype.slice.call(document.getElementsByTagName("script")), _i4 = 0, _length4 = null == scripts ? 0 : scripts.length; _i4 < _length4; _i4++) {
+                        var script = scripts[_i4];
+                        if (script.src && script.src.replace(/^https?:\/\//, "").split("?")[0] === url) return script;
+                    }
+                }, [ path ]);
+            }
+            function isLocalStorageEnabled() {
+                return inlineMemoize(isLocalStorageEnabled, function() {
                     try {
                         if ("undefined" == typeof window) return !1;
                         if (window.localStorage) {
@@ -71,96 +827,372 @@
                     } catch (err) {}
                     return !1;
                 });
-            };
-            __webpack_exports__.a = function(obj, event, handler) {
+            }
+            function getBrowserLocales() {
+                var nav = window.navigator, locales = nav.languages ? Array.prototype.slice.apply(nav.languages) : [];
+                nav.language && locales.push(nav.language);
+                nav.userLanguage && locales.push(nav.userLanguage);
+                return locales.map(function(locale) {
+                    if (locale && locale.match(/^[a-z]{2}[-_][A-Z]{2}$/)) {
+                        var _locale$split = locale.split(/[-_]/), _lang = _locale$split[0];
+                        return {
+                            country: _locale$split[1],
+                            lang: _lang
+                        };
+                    }
+                    return locale && locale.match(/^[a-z]{2}$/) ? {
+                        lang: locale
+                    } : null;
+                }).filter(Boolean);
+            }
+            function appendChild(container, child) {
+                container.appendChild(child);
+            }
+            function isElement(element) {
+                return element instanceof window.Element || null !== element && "object" === (void 0 === element ? "undefined" : dom__typeof(element)) && 1 === element.nodeType && "object" === dom__typeof(element.style) && "object" === dom__typeof(element.ownerDocument);
+            }
+            function getElementSafe(id) {
+                var doc = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : document;
+                return isElement(id) ? id : "string" == typeof id ? doc.querySelector(id) : void 0;
+            }
+            function getElement(id) {
+                var element = getElementSafe(id, arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : document);
+                if (element) return element;
+                throw new Error("Can not find element: " + stringify(id));
+            }
+            function elementReady(id) {
+                return new src.a(function(resolve, reject) {
+                    var name = stringify(id), el = getElementSafe(id);
+                    if (el) return resolve(el);
+                    if (isDocumentReady()) return reject(new Error("Document is ready and element " + name + " does not exist"));
+                    var interval = setInterval(function() {
+                        if (el = getElementSafe(id)) {
+                            clearInterval(interval);
+                            return resolve(el);
+                        }
+                        if (isDocumentReady()) {
+                            clearInterval(interval);
+                            return reject(new Error("Document is ready and element " + name + " does not exist"));
+                        }
+                    }, 10);
+                });
+            }
+            function PopupOpenError(message) {
+                this.message = message;
+            }
+            PopupOpenError.prototype = Object.create(Error.prototype);
+            function popup(url, options) {
+                var _options = options = options || {}, width = _options.width, height = _options.height, top = 0, left = 0;
+                width && (window.outerWidth ? left = Math.round((window.outerWidth - width) / 2) + window.screenX : window.screen.width && (left = Math.round((window.screen.width - width) / 2)));
+                height && (window.outerHeight ? top = Math.round((window.outerHeight - height) / 2) + window.screenY : window.screen.height && (top = Math.round((window.screen.height - height) / 2)));
+                var name = (options = _extends({
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height,
+                    status: 1,
+                    toolbar: 0,
+                    menubar: 0,
+                    resizable: 1,
+                    scrollbars: 1
+                }, options)).name || "";
+                delete options.name;
+                var params = Object.keys(options).map(function(key) {
+                    if (options[key]) return key + "=" + stringify(options[key]);
+                }).filter(Boolean).join(","), win = void 0;
+                try {
+                    win = window.open(url, name, params, !0);
+                } catch (err) {
+                    throw new PopupOpenError("Can not open popup window - " + (err.stack || err.message));
+                }
+                if (Object(cross_domain_utils_src.p)(win)) {
+                    var err;
+                    throw new PopupOpenError("Can not open popup window - blocked");
+                }
+                window.addEventListener("unload", function() {
+                    return win.close();
+                });
+                return win;
+            }
+            function writeToWindow(win, html) {
+                try {
+                    win.document.open();
+                    win.document.write(html);
+                    win.document.close();
+                } catch (err) {
+                    try {
+                        win.location = "javascript: document.open(); document.write(" + JSON.stringify(html) + "); document.close();";
+                    } catch (err2) {}
+                }
+            }
+            function writeElementToWindow(win, el) {
+                var tag = el.tagName.toLowerCase();
+                if ("html" !== tag) throw new Error("Expected element to be html, got " + tag);
+                for (var documentElement = win.document.documentElement; documentElement.children && documentElement.children.length; ) documentElement.removeChild(documentElement.children[0]);
+                for (;el.children.length; ) documentElement.appendChild(el.children[0]);
+            }
+            function setStyle(el, styleText) {
+                var doc = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : window.document;
+                el.styleSheet ? el.styleSheet.cssText = styleText : el.appendChild(doc.createTextNode(styleText));
+            }
+            var awaitFrameLoadPromises = void 0;
+            function awaitFrameLoad(frame) {
+                if ((awaitFrameLoadPromises = awaitFrameLoadPromises || new cross_domain_safe_weakmap_src.a()).has(frame)) {
+                    var _promise = awaitFrameLoadPromises.get(frame);
+                    if (_promise) return _promise;
+                }
+                var promise = new src.a(function(resolve, reject) {
+                    frame.addEventListener("load", function() {
+                        Object(cross_domain_utils_src.q)(frame);
+                        resolve(frame);
+                    });
+                    frame.addEventListener("error", function(err) {
+                        frame.contentWindow ? resolve(frame) : reject(err);
+                    });
+                });
+                awaitFrameLoadPromises.set(frame, promise);
+                return promise;
+            }
+            function awaitFrameWindow(frame) {
+                return awaitFrameLoad(frame).then(function(loadedFrame) {
+                    if (!loadedFrame.contentWindow) throw new Error("Could not find window in iframe");
+                    return loadedFrame.contentWindow;
+                });
+            }
+            function createElement() {
+                var tag = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "div", options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, container = arguments[2];
+                tag = tag.toLowerCase();
+                var element = document.createElement(tag);
+                options.style && extend(element.style, options.style);
+                options.class && (element.className = options.class.join(" "));
+                options.id && element.setAttribute("id", options.id);
+                if (options.attributes) for (var _i6 = 0, _Object$keys2 = Object.keys(options.attributes), _length6 = null == _Object$keys2 ? 0 : _Object$keys2.length; _i6 < _length6; _i6++) {
+                    var key = _Object$keys2[_i6];
+                    element.setAttribute(key, options.attributes[key]);
+                }
+                options.styleSheet && setStyle(element, options.styleSheet);
+                container && appendChild(container, element);
+                if (options.html) if ("iframe" === tag) {
+                    if (!container || !element.contentWindow) throw new Error("Iframe html can not be written unless container provided and iframe in DOM");
+                    writeToWindow(element.contentWindow, options.html);
+                } else element.innerHTML = options.html;
+                return element;
+            }
+            function iframe() {
+                var options = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, container = arguments[1], attributes = options.attributes || {}, style = options.style || {}, frame = createElement("iframe", {
+                    attributes: _extends({
+                        allowTransparency: "true"
+                    }, attributes),
+                    style: _extends({
+                        backgroundColor: "transparent",
+                        border: "none"
+                    }, style),
+                    html: options.html,
+                    class: options.class
+                }), isIE = window.navigator.userAgent.match(/MSIE|Edge/i);
+                frame.hasAttribute("id") || frame.setAttribute("id", uniqueID());
+                awaitFrameLoad(frame);
+                container && getElement(container).appendChild(frame);
+                (options.url || isIE) && frame.setAttribute("src", options.url || "about:blank");
+                return frame;
+            }
+            function addEventListener(obj, event, handler) {
                 obj.addEventListener(event, handler);
                 return {
                     cancel: function() {
                         obj.removeEventListener(event, handler);
                     }
                 };
+            }
+            function bindEvents(element, eventNames, handler) {
+                handler = once(handler);
+                for (var _i8 = 0, _length8 = null == eventNames ? 0 : eventNames.length; _i8 < _length8; _i8++) {
+                    var eventName = eventNames[_i8];
+                    element.addEventListener(eventName, handler);
+                }
+                return {
+                    cancel: once(function() {
+                        for (var _i10 = 0, _length10 = null == eventNames ? 0 : eventNames.length; _i10 < _length10; _i10++) {
+                            var _eventName = eventNames[_i10];
+                            element.removeEventListener(_eventName, handler);
+                        }
+                    })
+                };
+            }
+            var VENDOR_PREFIXES = [ "webkit", "moz", "ms", "o" ];
+            function setVendorCSS(element, name, value) {
+                element.style[name] = value;
+                for (var capitalizedName = capitalizeFirstLetter(name), _i12 = 0, _length12 = null == VENDOR_PREFIXES ? 0 : VENDOR_PREFIXES.length; _i12 < _length12; _i12++) {
+                    var prefix = VENDOR_PREFIXES[_i12];
+                    element.style["" + prefix + capitalizedName] = value;
+                }
+            }
+            var ANIMATION_START_EVENTS = [ "animationstart", "webkitAnimationStart", "oAnimationStart", "MSAnimationStart" ], ANIMATION_END_EVENTS = [ "animationend", "webkitAnimationEnd", "oAnimationEnd", "MSAnimationEnd" ];
+            function animate(element, name, clean) {
+                var timeout = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : 1e3;
+                return new src.a(function(resolve, reject) {
+                    var el = getElement(element);
+                    if (!el) return resolve();
+                    var hasStarted = !1, startTimeout = void 0, endTimeout = void 0, startEvent = void 0, endEvent = void 0;
+                    function cleanUp() {
+                        clearTimeout(startTimeout);
+                        clearTimeout(endTimeout);
+                        startEvent.cancel();
+                        endEvent.cancel();
+                    }
+                    startEvent = bindEvents(el, ANIMATION_START_EVENTS, function(event) {
+                        if (event.target === el && event.animationName === name) {
+                            clearTimeout(startTimeout);
+                            event.stopPropagation();
+                            startEvent.cancel();
+                            hasStarted = !0;
+                            endTimeout = setTimeout(function() {
+                                cleanUp();
+                                resolve();
+                            }, timeout);
+                        }
+                    });
+                    endEvent = bindEvents(el, ANIMATION_END_EVENTS, function(event) {
+                        if (event.target === el && event.animationName === name) {
+                            cleanUp();
+                            return "string" == typeof event.animationName && event.animationName !== name ? reject("Expected animation name to be " + name + ", found " + event.animationName) : resolve();
+                        }
+                    });
+                    setVendorCSS(el, "animationName", name);
+                    startTimeout = setTimeout(function() {
+                        if (!hasStarted) {
+                            cleanUp();
+                            return resolve();
+                        }
+                    }, 200);
+                    clean && clean(cleanUp);
+                });
+            }
+            var STYLE = {
+                DISPLAY: {
+                    NONE: "none",
+                    BLOCK: "block"
+                },
+                VISIBILITY: {
+                    VISIBLE: "visible",
+                    HIDDEN: "hidden"
+                },
+                IMPORTANT: "important"
             };
-            "function" == typeof Symbol && Symbol.iterator, Object.assign;
-            Object.create(Error.prototype);
-        },
-        "./node_modules/belter/src/experiment.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/belter/src/util.js"), __webpack_require__("./node_modules/belter/src/storage.js");
-        },
-        "./node_modules/belter/src/global.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/belter/src/util.js");
-        },
-        "./node_modules/belter/src/http.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/zalgo-promise/src/index.js"), __webpack_require__("./node_modules/cross-domain-utils/src/index.js");
-        },
-        "./node_modules/belter/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/belter/src/device.js");
-            var __WEBPACK_IMPORTED_MODULE_1__dom__ = __webpack_require__("./node_modules/belter/src/dom.js");
-            __webpack_require__.d(__webpack_exports__, "addEventListener", function() {
-                return __WEBPACK_IMPORTED_MODULE_1__dom__.a;
-            });
-            __webpack_require__("./node_modules/belter/src/experiment.js"), __webpack_require__("./node_modules/belter/src/global.js"), 
-            __webpack_require__("./node_modules/belter/src/storage.js");
-            var __WEBPACK_IMPORTED_MODULE_5__util__ = __webpack_require__("./node_modules/belter/src/util.js");
-            __webpack_require__.d(__webpack_exports__, "getOrSet", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.d;
-            });
-            __webpack_require__.d(__webpack_exports__, "isRegex", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.f;
-            });
-            __webpack_require__.d(__webpack_exports__, "memoizePromise", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.h;
-            });
-            __webpack_require__.d(__webpack_exports__, "noop", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.i;
-            });
-            __webpack_require__.d(__webpack_exports__, "once", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.j;
-            });
-            __webpack_require__.d(__webpack_exports__, "safeInterval", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.l;
-            });
-            __webpack_require__.d(__webpack_exports__, "stringifyError", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.n;
-            });
-            __webpack_require__.d(__webpack_exports__, "uniqueID", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.o;
-            });
-            __webpack_require__.d(__webpack_exports__, "weakMapMemoize", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.p;
-            });
-            __webpack_require__.d(__webpack_exports__, "weakMapMemoizePromise", function() {
-                return __WEBPACK_IMPORTED_MODULE_5__util__.q;
-            });
-            __webpack_require__("./node_modules/belter/src/http.js");
-            var __WEBPACK_IMPORTED_MODULE_7__types__ = __webpack_require__("./node_modules/belter/src/types.js");
-            __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__types__), __webpack_require__("./node_modules/belter/src/decorators.js"), 
-            __webpack_require__("./node_modules/belter/src/css.js"), __webpack_require__("./node_modules/belter/src/test.js");
-        },
-        "./node_modules/belter/src/storage.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_exports__.a = function getStorage(_ref) {
-                var name = _ref.name, _ref$version = _ref.version, version = void 0 === _ref$version ? "latest" : _ref$version, _ref$lifetime = _ref.lifetime, lifetime = void 0 === _ref$lifetime ? 3e5 : _ref$lifetime;
-                return Object(__WEBPACK_IMPORTED_MODULE_0__util__.e)(getStorage, function() {
-                    var STORAGE_KEY = "__" + name + "_" + version + "_storage__", accessedStorage = void 0;
+            function makeElementVisible(element) {
+                element.style.setProperty("visibility", "");
+            }
+            function makeElementInvisible(element) {
+                element.style.setProperty("visibility", STYLE.VISIBILITY.HIDDEN, STYLE.IMPORTANT);
+            }
+            function showElement(element) {
+                element.style.setProperty("display", "");
+            }
+            function hideElement(element) {
+                element.style.setProperty("display", STYLE.DISPLAY.NONE, STYLE.IMPORTANT);
+            }
+            function destroyElement(element) {
+                element && element.parentNode && element.parentNode.removeChild(element);
+            }
+            function showAndAnimate(element, name, clean) {
+                var animation = animate(element, name, clean);
+                showElement(element);
+                return animation;
+            }
+            function animateAndHide(element, name, clean) {
+                return animate(element, name, clean).then(function() {
+                    hideElement(element);
+                });
+            }
+            function addClass(element, name) {
+                element.classList.add(name);
+            }
+            function removeClass(element, name) {
+                element.classList.remove(name);
+            }
+            function isElementClosed(el) {
+                return !el || !el.parentNode;
+            }
+            function watchElementForClose(element, handler) {
+                handler = once(handler);
+                var interval = void 0;
+                isElementClosed(element) ? handler() : interval = safeInterval(function() {
+                    if (isElementClosed(element)) {
+                        interval.cancel();
+                        handler();
+                    }
+                }, 50);
+                return {
+                    cancel: function() {
+                        interval && interval.cancel();
+                    }
+                };
+            }
+            function fixScripts(el) {
+                for (var doc = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : window.document, _i14 = 0, _querySelectorAll2 = querySelectorAll("script", el), _length14 = null == _querySelectorAll2 ? 0 : _querySelectorAll2.length; _i14 < _length14; _i14++) {
+                    var script = _querySelectorAll2[_i14], parentNode = script.parentNode;
+                    if (parentNode) {
+                        var newScript = doc.createElement("script");
+                        newScript.text = script.textContent;
+                        parentNode.replaceChild(newScript, script);
+                    }
+                }
+            }
+            function onResize(el, handler) {
+                var _ref2 = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {}, _ref2$width = _ref2.width, width = void 0 === _ref2$width || _ref2$width, _ref2$height = _ref2.height, height = void 0 === _ref2$height || _ref2$height, _ref2$interval = _ref2.interval, interval = void 0 === _ref2$interval ? 100 : _ref2$interval, _ref2$win = _ref2.win, win = void 0 === _ref2$win ? window : _ref2$win, currentWidth = el.offsetWidth, currentHeight = el.offsetHeight;
+                handler({
+                    width: currentWidth,
+                    height: currentHeight
+                });
+                var check = function() {
+                    var newWidth = el.offsetWidth, newHeight = el.offsetHeight;
+                    (width && newWidth !== currentWidth || height && newHeight !== currentHeight) && handler({
+                        width: newWidth,
+                        height: newHeight
+                    });
+                    currentWidth = newWidth;
+                    currentHeight = newHeight;
+                }, observer = void 0, timeout = void 0;
+                if (void 0 !== win.ResizeObserver) (observer = new win.ResizeObserver(check)).observe(el); else if (void 0 !== win.MutationObserver) {
+                    (observer = new win.MutationObserver(check)).observe(el, {
+                        attributes: !0,
+                        childList: !0,
+                        subtree: !0,
+                        characterData: !1
+                    });
+                    win.addEventListener("resize", check);
+                } else !function loop() {
+                    check();
+                    timeout = setTimeout(loop, interval);
+                }();
+                return {
+                    cancel: function() {
+                        observer.disconnect();
+                        window.removeEventListener("resize", check);
+                        clearTimeout(timeout);
+                    }
+                };
+            }
+            var DEFAULT_SESSION_STORAGE = 12e5;
+            function getStorage(_ref) {
+                var name = _ref.name, _ref$lifetime = _ref.lifetime, lifetime = void 0 === _ref$lifetime ? DEFAULT_SESSION_STORAGE : _ref$lifetime;
+                return inlineMemoize(getStorage, function() {
+                    var STORAGE_KEY = "__" + name + "_storage__", accessedStorage = void 0;
                     function getState(handler) {
-                        var localStorageEnabled = Object(__WEBPACK_IMPORTED_MODULE_1__dom__.b)(), storage = void 0;
+                        var localStorageEnabled = isLocalStorageEnabled(), storage = void 0;
                         accessedStorage && (storage = accessedStorage);
                         if (!storage && localStorageEnabled) {
                             var rawStorage = window.localStorage.getItem(STORAGE_KEY);
                             rawStorage && (storage = JSON.parse(rawStorage));
                         }
-                        storage || (storage = Object(__WEBPACK_IMPORTED_MODULE_0__util__.c)()[STORAGE_KEY]);
+                        storage || (storage = getGlobal()[STORAGE_KEY]);
                         storage || (storage = {
-                            id: Object(__WEBPACK_IMPORTED_MODULE_0__util__.o)()
+                            id: uniqueID()
                         });
-                        storage.id || (storage.id = Object(__WEBPACK_IMPORTED_MODULE_0__util__.o)());
+                        storage.id || (storage.id = uniqueID());
                         accessedStorage = storage;
                         var result = handler(storage);
-                        localStorageEnabled ? window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storage)) : Object(__WEBPACK_IMPORTED_MODULE_0__util__.c)()[STORAGE_KEY] = storage;
+                        localStorageEnabled ? window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storage)) : getGlobal()[STORAGE_KEY] = storage;
                         accessedStorage = null;
                         return result;
                     }
@@ -169,7 +1201,7 @@
                             var session = storage.__session__, now = Date.now();
                             session && now - session.created > lifetime && (session = null);
                             session || (session = {
-                                guid: Object(__WEBPACK_IMPORTED_MODULE_0__util__.o)(),
+                                guid: uniqueID(),
                                 created: now
                             });
                             storage.__session__ = session;
@@ -197,197 +1229,704 @@
                     };
                 }, [ {
                     name: name,
-                    version: version,
                     lifetime: lifetime
                 } ]);
+            }
+            function getBelterExperimentStorage() {
+                return getStorage({
+                    name: "belter_experiment"
+                });
+            }
+            function isEventUnique(name) {
+                return getBelterExperimentStorage().getSessionState(function(state) {
+                    state.loggedBeacons = state.loggedBeacons || [];
+                    if (-1 === state.loggedBeacons.indexOf(name)) {
+                        state.loggedBeacons.push(name);
+                        return !0;
+                    }
+                    return !1;
+                });
+            }
+            var THROTTLE_GROUP = {
+                TEST: "test",
+                CONTROL: "control",
+                THROTTLE: "throttle"
             };
-            var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__("./node_modules/belter/src/util.js"), __WEBPACK_IMPORTED_MODULE_1__dom__ = __webpack_require__("./node_modules/belter/src/dom.js");
-        },
-        "./node_modules/belter/src/test.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_require__("./node_modules/zalgo-promise/src/index.js"), __webpack_require__("./node_modules/belter/src/util.js");
-        },
-        "./node_modules/belter/src/types.js": function(module, exports) {},
-        "./node_modules/belter/src/util.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            __webpack_exports__.o = uniqueID;
-            __webpack_exports__.c = function() {
-                if ("undefined" != typeof window) return window;
-                if ("undefined" != typeof window) return window;
-                if ("undefined" != typeof global) return global;
-                throw new Error("No global found");
-            };
-            __webpack_exports__.g = function(method) {
-                var _this = this, options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}, cacheMap = new __WEBPACK_IMPORTED_MODULE_1_cross_domain_safe_weakmap_src__.a();
-                function memoizedFunction() {
-                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
-                    var cache = cacheMap.getOrSet(options.thisNamespace ? this : method, function() {
-                        return {};
-                    }), key = serializeArgs(args), cacheTime = options.time;
-                    cache[key] && cacheTime && Date.now() - cache[key].time < cacheTime && delete cache[key];
-                    if (cache[key]) return cache[key].value;
-                    var time = Date.now(), value = method.apply(this, arguments);
-                    cache[key] = {
-                        time: time,
-                        value: value
-                    };
-                    return cache[key].value;
-                }
-                memoizedFunction.reset = function() {
-                    cacheMap.delete(options.thisNamespace ? _this : method);
-                };
-                options.name && (memoizedFunction.displayName = options.name + ":memoized");
-                return memoizedFunction;
-            };
-            __webpack_exports__.h = function(method) {
-                var cache = {};
-                function memoizedPromiseFunction() {
-                    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
-                    var key = serializeArgs(args);
-                    if (cache.hasOwnProperty(key)) return cache[key];
-                    cache[key] = method.apply(this, arguments).finally(function() {
-                        delete cache[key];
+            function experiment(_ref) {
+                var group, name = _ref.name, _ref$sample = _ref.sample, sample = void 0 === _ref$sample ? 50 : _ref$sample, _ref$logTreatment = _ref.logTreatment, logTreatment = void 0 === _ref$logTreatment ? noop : _ref$logTreatment, _ref$logCheckpoint = _ref.logCheckpoint, logCheckpoint = void 0 === _ref$logCheckpoint ? noop : _ref$logCheckpoint, throttle = function(name) {
+                    return getBelterExperimentStorage().getState(function(state) {
+                        state.throttlePercentiles = state.throttlePercentiles || {};
+                        state.throttlePercentiles[name] = state.throttlePercentiles[name] || Math.floor(100 * Math.random());
+                        return state.throttlePercentiles[name];
                     });
-                    return cache[key];
-                }
-                memoizedPromiseFunction.reset = function() {
-                    cache = {};
-                };
-                return memoizedPromiseFunction;
-            };
-            __webpack_exports__.k = function(method) {
-                var options = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-                function promisifiedFunction() {
-                    return __WEBPACK_IMPORTED_MODULE_0_zalgo_promise_src__.a.try(method, this, arguments);
-                }
-                options.name && (promisifiedFunction.displayName = options.name + ":promisified");
-                return promisifiedFunction;
-            };
-            __webpack_exports__.e = function(method, logic) {
-                var args = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : [], cache = method.__inline_memoize_cache__ = method.__inline_memoize_cache__ || {}, key = serializeArgs(args);
-                return cache.hasOwnProperty(key) ? cache[key] : cache[key] = logic.apply(void 0, args);
-            };
-            __webpack_exports__.i = function() {};
-            __webpack_exports__.j = function(method) {
-                var called = !1;
-                return function() {
-                    if (!called) {
-                        called = !0;
-                        return method.apply(this, arguments);
-                    }
-                };
-            };
-            __webpack_exports__.n = function stringifyError(err) {
-                var level = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1;
-                if (level >= 3) return "stringifyError stack overflow";
+                }(name);
+                group = throttle < sample ? THROTTLE_GROUP.TEST : sample >= 50 || sample <= throttle && throttle < 2 * sample ? THROTTLE_GROUP.CONTROL : THROTTLE_GROUP.THROTTLE;
+                var treatment = name + "_" + group, started = !1, forced = !1;
                 try {
-                    if (!err) return "<unknown error: " + Object.prototype.toString.call(err) + ">";
-                    if ("string" == typeof err) return err;
-                    if (err instanceof Error) {
-                        var stack = err && err.stack, message = err && err.message;
-                        if (stack && message) return -1 !== stack.indexOf(message) ? stack : message + "\n" + stack;
-                        if (stack) return stack;
-                        if (message) return message;
-                    }
-                    return "function" == typeof err.toString ? err.toString() : Object.prototype.toString.call(err);
-                } catch (newErr) {
-                    return "Error while stringifying error: " + stringifyError(newErr, level + 1);
-                }
-            };
-            __webpack_exports__.m = function(item) {
-                return "string" == typeof item ? item : item && "function" == typeof item.toString ? item.toString() : Object.prototype.toString.call(item);
-            };
-            __webpack_exports__.b = function(obj, source) {
-                if (!source) return obj;
-                if (Object.assign) return Object.assign(obj, source);
-                for (var key in source) source.hasOwnProperty(key) && (obj[key] = source[key]);
-                return obj;
-            };
-            __webpack_exports__.l = function(method, time) {
-                var timeout = void 0;
-                !function loop() {
-                    timeout = setTimeout(function() {
-                        method();
-                        loop();
-                    }, time);
-                }();
+                    window.localStorage && window.localStorage.getItem(name) && (forced = !0);
+                } catch (err) {}
                 return {
-                    cancel: function() {
-                        clearTimeout(timeout);
+                    isEnabled: function() {
+                        return group === THROTTLE_GROUP.TEST || forced;
+                    },
+                    isDisabled: function() {
+                        return group !== THROTTLE_GROUP.TEST && !forced;
+                    },
+                    getTreatment: function() {
+                        return treatment;
+                    },
+                    log: function(checkpoint) {
+                        var payload = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+                        if (!started) return this;
+                        isEventUnique(name + "_" + treatment) && logTreatment({
+                            name: name,
+                            treatment: treatment
+                        });
+                        isEventUnique(name + "_" + treatment + "_" + checkpoint) && logCheckpoint({
+                            name: name,
+                            treatment: treatment,
+                            checkpoint: checkpoint,
+                            payload: payload
+                        });
+                        return this;
+                    },
+                    logStart: function() {
+                        var payload = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+                        started = !0;
+                        return this.log("start", payload);
+                    },
+                    logComplete: function() {
+                        var payload = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
+                        return this.log("complete", payload);
                     }
                 };
-            };
-            __webpack_exports__.a = function(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-            };
-            __webpack_exports__.f = function(item) {
-                return "[object RegExp]" === Object.prototype.toString.call(item);
-            };
-            __webpack_require__.d(__webpack_exports__, "p", function() {
-                return weakMapMemoize;
-            });
-            __webpack_require__.d(__webpack_exports__, "q", function() {
-                return weakMapMemoizePromise;
-            });
-            __webpack_exports__.d = function(obj, key, getter) {
-                if (obj.hasOwnProperty(key)) return obj[key];
-                var val = getter();
-                obj[key] = val;
-                return val;
-            };
-            var __WEBPACK_IMPORTED_MODULE_0_zalgo_promise_src__ = __webpack_require__("./node_modules/zalgo-promise/src/index.js"), __WEBPACK_IMPORTED_MODULE_1_cross_domain_safe_weakmap_src__ = __webpack_require__("./node_modules/cross-domain-safe-weakmap/src/index.js"), _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
-                return typeof obj;
-            } : function(obj) {
-                return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-            };
-            function uniqueID() {
-                var chars = "0123456789abcdef";
-                return "xxxxxxxxxx".replace(/./g, function() {
-                    return chars.charAt(Math.floor(Math.random() * chars.length));
-                }) + "_" + function(str) {
-                    if ("function" == typeof btoa) return btoa(str);
-                    if ("undefined" != typeof Buffer) return Buffer.from(str, "utf8").toString("base64");
-                    throw new Error("Can not find window.btoa or Buffer");
-                }(new Date().toISOString().slice(11, 19).replace("T", ".")).replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
             }
-            var objectIDs = void 0;
-            function serializeArgs(args) {
-                try {
-                    return JSON.stringify(Array.prototype.slice.call(args), function(subkey, val) {
-                        return "function" == typeof val ? "memoize[" + function(obj) {
-                            objectIDs = objectIDs || new __WEBPACK_IMPORTED_MODULE_1_cross_domain_safe_weakmap_src__.a();
-                            if (null === obj || void 0 === obj || "object" !== (void 0 === obj ? "undefined" : _typeof(obj)) && "function" != typeof obj) throw new Error("Invalid object");
-                            var uid = objectIDs.get(obj);
-                            if (!uid) {
-                                uid = (void 0 === obj ? "undefined" : _typeof(obj)) + ":" + uniqueID();
-                                objectIDs.set(obj, uid);
+            function getGlobalNameSpace(_ref) {
+                var name = _ref.name, _ref$version = _ref.version, version = void 0 === _ref$version ? "latest" : _ref$version, global = getGlobal(), globalKey = "__" + name + "__" + version + "_global__", namespace = global[globalKey] = global[globalKey] || {};
+                return {
+                    get: function(key, defValue) {
+                        defValue = defValue || {};
+                        return namespace[key] = namespace[key] || defValue;
+                    }
+                };
+            }
+            var HEADERS = {
+                CONTENT_TYPE: "content-type",
+                ACCEPT: "accept"
+            }, headerBuilders = [];
+            function request(_ref) {
+                var url = _ref.url, _ref$method = _ref.method, method = void 0 === _ref$method ? "get" : _ref$method, _ref$headers = _ref.headers, headers = void 0 === _ref$headers ? {} : _ref$headers, json = _ref.json, data = _ref.data, body = _ref.body, _ref$win = _ref.win, win = void 0 === _ref$win ? window : _ref$win, _ref$timeout = _ref.timeout, timeout = void 0 === _ref$timeout ? 0 : _ref$timeout;
+                return new src.a(function(resolve, reject) {
+                    if (json && data || json && body || data && json) throw new Error("Only options.json or options.data or options.body should be passed");
+                    for (var normalizedHeaders = {}, _i4 = 0, _Object$keys2 = Object.keys(headers), _length4 = null == _Object$keys2 ? 0 : _Object$keys2.length; _i4 < _length4; _i4++) {
+                        var _key2 = _Object$keys2[_i4];
+                        normalizedHeaders[_key2.toLowerCase()] = headers[_key2];
+                    }
+                    json ? normalizedHeaders[HEADERS.CONTENT_TYPE] = normalizedHeaders[HEADERS.CONTENT_TYPE] || "application/json" : (data || body) && (normalizedHeaders[HEADERS.CONTENT_TYPE] = normalizedHeaders[HEADERS.CONTENT_TYPE] || "application/x-www-form-urlencoded; charset=utf-8");
+                    normalizedHeaders[HEADERS.ACCEPT] = normalizedHeaders[HEADERS.ACCEPT] || "application/json";
+                    for (var _i6 = 0, _length6 = null == headerBuilders ? 0 : headerBuilders.length; _i6 < _length6; _i6++) for (var builtHeaders = (0, 
+                    headerBuilders[_i6])(), _i8 = 0, _Object$keys4 = Object.keys(builtHeaders), _length8 = null == _Object$keys4 ? 0 : _Object$keys4.length; _i8 < _length8; _i8++) {
+                        var _key3 = _Object$keys4[_i8];
+                        normalizedHeaders[_key3.toLowerCase()] = builtHeaders[_key3];
+                    }
+                    var xhr = new win.XMLHttpRequest();
+                    xhr.addEventListener("load", function() {
+                        var responseHeaders = function() {
+                            for (var result = {}, _i2 = 0, _rawHeaders$trim$spli2 = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "").trim().split("\n"), _length2 = null == _rawHeaders$trim$spli2 ? 0 : _rawHeaders$trim$spli2.length; _i2 < _length2; _i2++) {
+                                var _line$split = _rawHeaders$trim$spli2[_i2].split(":"), _key = _line$split[0], values = _line$split.slice(1);
+                                result[_key.toLowerCase()] = values.join(":").trim();
                             }
-                            return uid;
-                        }(val) + "]" : val;
-                    });
-                } catch (err) {
-                    throw new Error("Arguments not serializable -- can not be used to memoize");
-                }
+                            return result;
+                        }(this.getAllResponseHeaders());
+                        if (!this.status) return reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: no response status code."));
+                        var contentType = responseHeaders["content-type"], isJSON = contentType && (0 === contentType.indexOf("application/json") || 0 === contentType.indexOf("text/json")), responseBody = this.responseText;
+                        try {
+                            responseBody = JSON.parse(responseBody);
+                        } catch (err) {
+                            if (isJSON) return reject(new Error("Invalid json: " + this.responseText + "."));
+                        }
+                        var res = {
+                            status: this.status,
+                            headers: responseHeaders,
+                            body: responseBody
+                        };
+                        return resolve(res);
+                    }, !1);
+                    xhr.addEventListener("error", function(evt) {
+                        reject(new Error("Request to " + method.toLowerCase() + " " + url + " failed: " + evt.toString() + "."));
+                    }, !1);
+                    xhr.open(method, url, !0);
+                    for (var _key4 in normalizedHeaders) normalizedHeaders.hasOwnProperty(_key4) && xhr.setRequestHeader(_key4, normalizedHeaders[_key4]);
+                    json ? body = JSON.stringify(json) : data && (body = Object.keys(data).map(function(key) {
+                        return encodeURIComponent(key) + "=" + (data ? encodeURIComponent(data[key]) : "");
+                    }).join("&"));
+                    xhr.timeout = timeout;
+                    xhr.ontimeout = function() {
+                        reject(new Error("Request to " + method.toLowerCase() + " " + url + " has timed out"));
+                    };
+                    xhr.send(body);
+                });
             }
-            var weakMapMemoize = function(method) {
-                var weakmap = new __WEBPACK_IMPORTED_MODULE_1_cross_domain_safe_weakmap_src__.a();
-                return function(arg) {
-                    var _this4 = this;
-                    return weakmap.getOrSet(arg, function() {
-                        return method.call(_this4, arg);
-                    });
+            function addHeaderBuilder(method) {
+                headerBuilders.push(method);
+            }
+            function memoized(target, name, descriptor) {
+                descriptor.value = memoize(descriptor.value, {
+                    name: name,
+                    thisNamespace: !0
+                });
+            }
+            function decorators_promise(target, name, descriptor) {
+                descriptor.value = promisify(descriptor.value, {
+                    name: name
+                });
+            }
+            function isPerc(str) {
+                return "string" == typeof str && /^[0-9]+%$/.test(str);
+            }
+            function isPx(str) {
+                return "string" == typeof str && /^[0-9]+px$/.test(str);
+            }
+            function toNum(val) {
+                if ("number" == typeof val) return val;
+                var match = val.match(/^([0-9]+)(px|%)$/);
+                if (!match) throw new Error("Could not match css value from " + val);
+                return parseInt(match[1], 10);
+            }
+            function toPx(val) {
+                return toNum(val) + "px";
+            }
+            function toCSS(val) {
+                return "number" == typeof val ? toPx(val) : isPerc(val) ? val : toPx(val);
+            }
+            function percOf(num, perc) {
+                return parseInt(num * toNum(perc) / 100, 10);
+            }
+            function normalizeDimension(dim, max) {
+                if ("number" == typeof dim) return dim;
+                if (isPerc(dim)) return percOf(max, dim);
+                if (isPx(dim)) return toNum(dim);
+                throw new Error("Can not normalize dimension: " + dim);
+            }
+            function wrapPromise(method) {
+                var _ref$timeout = (arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}).timeout, expected = [], promises = [], timer = setTimeout(function() {
+                    expected && promises.push(src.a.asyncReject(new Error("Expected " + expected[0] + " to be called")));
+                }, void 0 === _ref$timeout ? 5e3 : _ref$timeout), expect = function(name) {
+                    var fn = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : noop;
+                    expected.push(name);
+                    return function() {
+                        for (var _this = this, _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
+                        removeFromArray(expected, name);
+                        var _tryCatch = tryCatch(function() {
+                            return fn.call.apply(fn, [ _this ].concat(args));
+                        }), result = _tryCatch.result, error = _tryCatch.error;
+                        if (error) {
+                            promises.push(src.a.asyncReject(error));
+                            throw error;
+                        }
+                        promises.push(src.a.resolve(result));
+                        return result;
+                    };
+                }, avoid = function(name) {
+                    var fn = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : noop;
+                    return function() {
+                        promises.push(src.a.asyncReject(new Error("Expected " + name + " to not be called")));
+                        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
+                        return fn.call.apply(fn, [ this ].concat(args));
+                    };
+                }, expectError = function(name) {
+                    var fn = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : noop;
+                    expected.push(name);
+                    return function() {
+                        for (var _this2 = this, _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) args[_key3] = arguments[_key3];
+                        removeFromArray(expected, name);
+                        var _tryCatch2 = tryCatch(function() {
+                            return fn.call.apply(fn, [ _this2 ].concat(args));
+                        }), result = _tryCatch2.result, error = _tryCatch2.error;
+                        if (error) throw error;
+                        promises.push(src.a.resolve(result).then(function() {
+                            throw new Error("Expected " + name + " to throw an error");
+                        }, noop));
+                        return result;
+                    };
                 };
-            }, weakMapMemoizePromise = function(method) {
-                var weakmap = new __WEBPACK_IMPORTED_MODULE_1_cross_domain_safe_weakmap_src__.a();
-                return function(arg) {
-                    var _this5 = this;
-                    return weakmap.getOrSet(arg, function() {
-                        return method.call(_this5, arg).finally(function() {
-                            weakmap.delete(arg);
-                        });
+                promises.push(src.a.try(function() {
+                    return method({
+                        expect: expect,
+                        avoid: avoid,
+                        expectError: expectError,
+                        error: avoid
                     });
-                };
-            };
+                }));
+                return function drain() {
+                    return src.a.try(function() {
+                        if (promises.length) return promises.pop();
+                    }).then(function() {
+                        return promises.length ? drain() : expected.length ? src.a.delay(10).then(drain) : void 0;
+                    });
+                }().then(function() {
+                    clearTimeout(timer);
+                });
+            }
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getUserAgent;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isDevice;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isWebView;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isStandAlone;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFacebookWebView;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFirefoxIOS;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isEdgeIOS;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isOperaMini;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isAndroid;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isIos;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isGoogleSearchApp;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isQQBrowser;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isIosWebview;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isAndroidWebview;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return device_isIE;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isIECompHeader;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isElectron;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isIEIntranet;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isMacOsCna;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return supportsPopups;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isDocumentReady;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return urlEncode;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return waitForWindowReady;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return waitForDocumentReady;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return waitForDocumentBody;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return parseQuery;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getQueryParam;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return urlWillRedirectPage;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return formatQuery;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return extendQuery;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return extendUrl;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return redirect;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return hasMetaViewPort;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isElementVisible;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return enablePerformance;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getPageRenderTime;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return htmlEncode;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isBrowser;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return querySelectorAll;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return onClick;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getScript;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isLocalStorageEnabled;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getBrowserLocales;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return appendChild;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getElementSafe;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return elementReady;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return PopupOpenError;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return popup;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return writeToWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return writeElementToWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return setStyle;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return awaitFrameLoad;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return awaitFrameWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return createElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return iframe;
+            });
+            __webpack_require__.d(__webpack_exports__, "a", function() {
+                return addEventListener;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return bindEvents;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return setVendorCSS;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return animate;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return makeElementVisible;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return makeElementInvisible;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return showElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return hideElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return destroyElement;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return showAndAnimate;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return animateAndHide;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return addClass;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return removeClass;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isElementClosed;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return watchElementForClose;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return fixScripts;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return onResize;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return experiment;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getGlobalNameSpace;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getStorage;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return base64encode;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return base64decode;
+            });
+            __webpack_require__.d(__webpack_exports__, "i", function() {
+                return uniqueID;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getGlobal;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getObjectID;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return memoize;
+            });
+            __webpack_require__.d(__webpack_exports__, "d", function() {
+                return memoizePromise;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return promisify;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return inlineMemoize;
+            });
+            __webpack_require__.d(__webpack_exports__, "e", function() {
+                return noop;
+            });
+            __webpack_require__.d(__webpack_exports__, "f", function() {
+                return once;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return hashStr;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return strHashStr;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return match;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return awaitKey;
+            });
+            __webpack_require__.d(__webpack_exports__, "h", function() {
+                return stringifyError;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return stringifyErrorMessage;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return stringify;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return domainMatches;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return patchMethod;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return extend;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return values;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return perc;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return min;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return max;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return regexMap;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return svgToBase64;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return objFilter;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return identity;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return regexTokenize;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return promiseDebounce;
+            });
+            __webpack_require__.d(__webpack_exports__, "g", function() {
+                return safeInterval;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isInteger;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFloat;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return serializePrimitive;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return deserializePrimitive;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return dotify;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return undotify;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return eventEmitter;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return camelToDasherize;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return dasherizeToCamel;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return capitalizeFirstLetter;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return get;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return safeTimeout;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return defineLazyProp;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isObject;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isObjectObject;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isPlainObject;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return replaceObject;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return copyProp;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return regex;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return regexAll;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isDefined;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return cycle;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return debounce;
+            });
+            __webpack_require__.d(__webpack_exports__, "c", function() {
+                return isRegex;
+            });
+            __webpack_require__.d(__webpack_exports__, "j", function() {
+                return util_weakMapMemoize;
+            });
+            __webpack_require__.d(__webpack_exports__, "k", function() {
+                return util_weakMapMemoizePromise;
+            });
+            __webpack_require__.d(__webpack_exports__, "b", function() {
+                return getOrSet;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return cleanup;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return tryCatch;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return removeFromArray;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return assertExists;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return request;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return addHeaderBuilder;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return !0;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return memoized;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return decorators_promise;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isPerc;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isPx;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return toNum;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return toPx;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return toCSS;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return percOf;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return normalizeDimension;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return wrapPromise;
+            });
         },
         "./node_modules/cross-domain-safe-weakmap/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -428,7 +1967,7 @@
                 CrossDomainSafeWeakMap.prototype._cleanupClosedWindows = function() {
                     for (var weakmap = this.weakmap, keys = this.keys, i = 0; i < keys.length; i++) {
                         var value = keys[i];
-                        if (Object(src.isWindow)(value) && Object(src.isWindowClosed)(value)) {
+                        if (Object(src.o)(value) && Object(src.p)(value)) {
                             if (weakmap) try {
                                 weakmap.delete(value);
                             } catch (err) {}
@@ -439,7 +1978,7 @@
                     }
                 };
                 CrossDomainSafeWeakMap.prototype.isSafeToReadWrite = function(key) {
-                    if (Object(src.isWindow)(key)) return !1;
+                    if (Object(src.o)(key)) return !1;
                     try {
                         key && key.self;
                         key && key[this.name];
@@ -535,17 +2074,11 @@
                 return weakmap_CrossDomainSafeWeakMap;
             });
         },
-        "./node_modules/cross-domain-utils/src/constants.js": function(module, __webpack_exports__, __webpack_require__) {
+        "./node_modules/cross-domain-utils/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
             "use strict";
-            __webpack_require__.d(__webpack_exports__, "a", function() {
-                return PROTOCOL;
-            });
-            __webpack_require__.d(__webpack_exports__, "b", function() {
-                return WILDCARD;
-            });
-            __webpack_require__.d(__webpack_exports__, "c", function() {
-                return WINDOW_TYPE;
-            });
+            function isRegex(item) {
+                return "[object RegExp]" === Object.prototype.toString.call(item);
+            }
             var PROTOCOL = {
                 MOCK: "mock:",
                 FILE: "file:",
@@ -553,249 +2086,12 @@
             }, WILDCARD = "*", WINDOW_TYPE = {
                 IFRAME: "iframe",
                 POPUP: "popup"
-            };
-        },
-        "./node_modules/cross-domain-utils/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__("./node_modules/cross-domain-utils/src/utils.js");
-            __webpack_require__.d(__webpack_exports__, "getActualDomain", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.a;
-            });
-            __webpack_require__.d(__webpack_exports__, "getAncestor", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.b;
-            });
-            __webpack_require__.d(__webpack_exports__, "getDomain", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.c;
-            });
-            __webpack_require__.d(__webpack_exports__, "getDomainFromUrl", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.d;
-            });
-            __webpack_require__.d(__webpack_exports__, "getFrameByName", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.e;
-            });
-            __webpack_require__.d(__webpack_exports__, "getOpener", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.f;
-            });
-            __webpack_require__.d(__webpack_exports__, "getParent", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.g;
-            });
-            __webpack_require__.d(__webpack_exports__, "getUserAgent", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.h;
-            });
-            __webpack_require__.d(__webpack_exports__, "isActuallySameDomain", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.i;
-            });
-            __webpack_require__.d(__webpack_exports__, "isAncestor", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.j;
-            });
-            __webpack_require__.d(__webpack_exports__, "isOpener", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.k;
-            });
-            __webpack_require__.d(__webpack_exports__, "isSameDomain", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.l;
-            });
-            __webpack_require__.d(__webpack_exports__, "isSameTopWindow", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.m;
-            });
-            __webpack_require__.d(__webpack_exports__, "isWindow", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.n;
-            });
-            __webpack_require__.d(__webpack_exports__, "isWindowClosed", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.o;
-            });
-            __webpack_require__.d(__webpack_exports__, "linkFrameWindow", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.p;
-            });
-            __webpack_require__.d(__webpack_exports__, "matchDomain", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.q;
-            });
-            __webpack_require__.d(__webpack_exports__, "normalizeMockUrl", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.r;
-            });
-            __webpack_require__.d(__webpack_exports__, "stringifyDomainPattern", function() {
-                return __WEBPACK_IMPORTED_MODULE_0__utils__.s;
-            });
-            var __WEBPACK_IMPORTED_MODULE_1__types__ = __webpack_require__("./node_modules/cross-domain-utils/src/types.js");
-            __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__types__);
-            __webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1__types__, "WINDOW_TYPE") && __webpack_require__.d(__webpack_exports__, "WINDOW_TYPE", function() {
-                return __WEBPACK_IMPORTED_MODULE_1__types__.WINDOW_TYPE;
-            });
-            var __WEBPACK_IMPORTED_MODULE_2__constants__ = __webpack_require__("./node_modules/cross-domain-utils/src/constants.js");
-            __webpack_require__.d(__webpack_exports__, "WINDOW_TYPE", function() {
-                return __WEBPACK_IMPORTED_MODULE_2__constants__.c;
-            });
-        },
-        "./node_modules/cross-domain-utils/src/types.js": function(module, exports) {},
-        "./node_modules/cross-domain-utils/src/utils.js": function(module, __webpack_exports__, __webpack_require__) {
-            "use strict";
-            function isRegex(item) {
-                return "[object RegExp]" === Object.prototype.toString.call(item);
+            }, IE_WIN_ACCESS_ERROR = "Call was rejected by callee.\r\n";
+            function isFileProtocol() {
+                return (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window).location.protocol === PROTOCOL.FILE;
             }
-            var constants = __webpack_require__("./node_modules/cross-domain-utils/src/constants.js");
-            __webpack_exports__.g = getParent;
-            __webpack_exports__.f = getOpener;
-            __webpack_exports__.a = getActualDomain;
-            __webpack_exports__.c = getDomain;
-            __webpack_exports__.i = isActuallySameDomain;
-            __webpack_exports__.l = isSameDomain;
-            __webpack_exports__.o = function(win) {
-                var allowMock = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1];
-                try {
-                    if (win === window) return !1;
-                } catch (err) {
-                    return !0;
-                }
-                try {
-                    if (!win) return !0;
-                } catch (err) {
-                    return !0;
-                }
-                try {
-                    if (win.closed) return !0;
-                } catch (err) {
-                    return !err || err.message !== IE_WIN_ACCESS_ERROR;
-                }
-                if (allowMock && isSameDomain(win)) try {
-                    if (win.mockclosed) return !0;
-                } catch (err) {}
-                try {
-                    if (!win.parent || !win.top) return !0;
-                } catch (err) {}
-                var iframeIndex = function(collection, item) {
-                    for (var i = 0; i < collection.length; i++) try {
-                        if (collection[i] === item) return i;
-                    } catch (err) {}
-                    return -1;
-                }(iframeWindows, win);
-                if (-1 !== iframeIndex) {
-                    var frame = iframeFrames[iframeIndex];
-                    if (frame && function(frame) {
-                        if (!frame.contentWindow) return !0;
-                        if (!frame.parentNode) return !0;
-                        var doc = frame.ownerDocument;
-                        return !(!doc || !doc.documentElement || doc.documentElement.contains(frame));
-                    }(frame)) return !0;
-                }
-                return !1;
-            };
-            __webpack_exports__.p = function(frame) {
-                !function() {
-                    for (var i = 0; i < iframeWindows.length; i++) {
-                        var closed = !1;
-                        try {
-                            closed = iframeWindows[i].closed;
-                        } catch (err) {}
-                        if (closed) {
-                            iframeFrames.splice(i, 1);
-                            iframeWindows.splice(i, 1);
-                        }
-                    }
-                }();
-                if (frame && frame.contentWindow) try {
-                    iframeWindows.push(frame.contentWindow);
-                    iframeFrames.push(frame);
-                } catch (err) {}
-            };
-            __webpack_exports__.h = function(win) {
-                return (win = win || window).navigator.mockUserAgent || win.navigator.userAgent;
-            };
-            __webpack_exports__.e = function(win, name) {
-                for (var winFrames = getFrames(win), _i9 = 0, _length8 = null == winFrames ? 0 : winFrames.length; _i9 < _length8; _i9++) {
-                    var childFrame = winFrames[_i9];
-                    try {
-                        if (isSameDomain(childFrame) && childFrame.name === name && -1 !== winFrames.indexOf(childFrame)) return childFrame;
-                    } catch (err) {}
-                }
-                try {
-                    if (-1 !== winFrames.indexOf(win.frames[name])) return win.frames[name];
-                } catch (err) {}
-                try {
-                    if (-1 !== winFrames.indexOf(win[name])) return win[name];
-                } catch (err) {}
-            };
-            __webpack_exports__.k = function(parent, child) {
-                return parent === getOpener(child);
-            };
-            __webpack_exports__.b = getAncestor;
-            __webpack_exports__.j = function(parent, child) {
-                var actualParent = getAncestor(child);
-                if (actualParent) return actualParent === parent;
-                if (child === parent) return !1;
-                if (getTop(child) === child) return !1;
-                for (var _i15 = 0, _getFrames8 = getFrames(parent), _length14 = null == _getFrames8 ? 0 : _getFrames8.length; _i15 < _length14; _i15++) if (_getFrames8[_i15] === child) return !0;
-                return !1;
-            };
-            __webpack_exports__.m = function(win1, win2) {
-                var top1 = getTop(win1) || win1, top2 = getTop(win2) || win2;
-                try {
-                    if (top1 && top2) return top1 === top2;
-                } catch (err) {}
-                var allFrames1 = getAllFramesInWindow(win1), allFrames2 = getAllFramesInWindow(win2);
-                if (anyMatch(allFrames1, allFrames2)) return !0;
-                var opener1 = getOpener(top1), opener2 = getOpener(top2);
-                return !(opener1 && anyMatch(getAllFramesInWindow(opener1), allFrames2) || (opener2 && anyMatch(getAllFramesInWindow(opener2), allFrames1), 
-                1));
-            };
-            __webpack_exports__.q = function matchDomain(pattern, origin) {
-                if ("string" == typeof pattern) {
-                    if ("string" == typeof origin) return pattern === constants.b || origin === pattern;
-                    if (isRegex(origin)) return !1;
-                    if (Array.isArray(origin)) return !1;
-                }
-                return isRegex(pattern) ? isRegex(origin) ? pattern.toString() === origin.toString() : !Array.isArray(origin) && Boolean(origin.match(pattern)) : !!Array.isArray(pattern) && (Array.isArray(origin) ? JSON.stringify(pattern) === JSON.stringify(origin) : !isRegex(origin) && pattern.some(function(subpattern) {
-                    return matchDomain(subpattern, origin);
-                }));
-            };
-            __webpack_exports__.s = function(pattern) {
-                return Array.isArray(pattern) ? "(" + pattern.join(" | ") + ")" : isRegex(pattern) ? "RegExp(" + pattern.toString() : pattern.toString();
-            };
-            __webpack_exports__.d = getDomainFromUrl;
-            __webpack_exports__.n = function(obj) {
-                try {
-                    if (obj === window) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    if ("[object Window]" === Object.prototype.toString.call(obj)) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    if (window.Window && obj instanceof window.Window) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    if (obj && obj.self === obj) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    if (obj && obj.parent === obj) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    if (obj && obj.top === obj) return !0;
-                } catch (err) {
-                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
-                }
-                try {
-                    obj && obj.__cross_domain_utils_window_check__;
-                } catch (err) {
-                    return !0;
-                }
-                return !1;
-            };
-            __webpack_exports__.r = function(url) {
-                if (!(domain = getDomainFromUrl(url), 0 === domain.indexOf(constants.a.MOCK))) return url;
-                var domain;
-                throw new Error("Mock urls not supported out of test mode");
-            };
-            var IE_WIN_ACCESS_ERROR = "Call was rejected by callee.\r\n";
             function isAboutProtocol() {
-                return (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window).location.protocol === constants.a.ABOUT;
+                return (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window).location.protocol === PROTOCOL.ABOUT;
             }
             function getParent(win) {
                 if (win) try {
@@ -819,10 +2115,10 @@
                 if (!location) throw new Error("Can not read window location");
                 var protocol = location.protocol;
                 if (!protocol) throw new Error("Can not read window protocol");
-                if (protocol === constants.a.FILE) return constants.a.FILE + "//";
-                if (protocol === constants.a.ABOUT) {
+                if (protocol === PROTOCOL.FILE) return PROTOCOL.FILE + "//";
+                if (protocol === PROTOCOL.ABOUT) {
                     var parent = getParent(win);
-                    return parent && canReadFromWindow(parent) ? getActualDomain(parent) : constants.a.ABOUT + "//";
+                    return parent && canReadFromWindow(parent) ? getActualDomain(parent) : PROTOCOL.ABOUT + "//";
                 }
                 var host = location.host;
                 if (!host) throw new Error("Can not read window host");
@@ -830,7 +2126,14 @@
             }
             function getDomain(win) {
                 var domain = getActualDomain(win = win || window);
-                return domain && win.mockDomain && 0 === win.mockDomain.indexOf(constants.a.MOCK) ? win.mockDomain : domain;
+                return domain && win.mockDomain && 0 === win.mockDomain.indexOf(PROTOCOL.MOCK) ? win.mockDomain : domain;
+            }
+            function isBlankDomain(win) {
+                try {
+                    if (!win.location.href) return !0;
+                    if ("about:blank" === win.location.href) return !0;
+                } catch (err) {}
+                return !1;
             }
             function isActuallySameDomain(win) {
                 try {
@@ -857,19 +2160,24 @@
                 } catch (err) {}
                 return !1;
             }
+            function assertSameDomain(win) {
+                if (!isSameDomain(win)) throw new Error("Expected window to be same domain");
+                return win;
+            }
+            function getParents(win) {
+                var result = [];
+                try {
+                    for (;win.parent !== win; ) {
+                        result.push(win.parent);
+                        win = win.parent;
+                    }
+                } catch (err) {}
+                return result;
+            }
             function isAncestorParent(parent, child) {
                 if (!parent || !child) return !1;
                 var childParent = getParent(child);
-                return childParent ? childParent === parent : -1 !== function(win) {
-                    var result = [];
-                    try {
-                        for (;win.parent !== win; ) {
-                            result.push(win.parent);
-                            win = win.parent;
-                        }
-                    } catch (err) {}
-                    return result;
-                }(child).indexOf(parent);
+                return childParent ? childParent === parent : -1 !== getParents(child).indexOf(parent);
             }
             function getFrames(win) {
                 var result = [], frames = void 0;
@@ -939,22 +2247,422 @@
                     }
                 }
             }
+            function getNextOpener() {
+                var win = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window;
+                return getOpener(getTop(win) || win);
+            }
+            function getUltimateTop() {
+                var opener = getNextOpener(arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window);
+                return opener ? getUltimateTop(opener) : top;
+            }
             function getAllFramesInWindow(win) {
                 var top = getTop(win);
                 if (!top) throw new Error("Can not determine top window");
                 return [].concat(getAllChildFrames(top), [ top ]);
             }
+            function getAllWindows() {
+                var win = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window, frames = getAllFramesInWindow(win), opener = getNextOpener(win);
+                return opener ? [].concat(getAllWindows(opener), frames) : frames;
+            }
+            function isTop(win) {
+                return win === getTop(win);
+            }
+            function isFrameWindowClosed(frame) {
+                if (!frame.contentWindow) return !0;
+                if (!frame.parentNode) return !0;
+                var doc = frame.ownerDocument;
+                return !(!doc || !doc.documentElement || doc.documentElement.contains(frame));
+            }
             var iframeWindows = [], iframeFrames = [];
+            function isWindowClosed(win) {
+                var allowMock = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1];
+                try {
+                    if (win === window) return !1;
+                } catch (err) {
+                    return !0;
+                }
+                try {
+                    if (!win) return !0;
+                } catch (err) {
+                    return !0;
+                }
+                try {
+                    if (win.closed) return !0;
+                } catch (err) {
+                    return !err || err.message !== IE_WIN_ACCESS_ERROR;
+                }
+                if (allowMock && isSameDomain(win)) try {
+                    if (win.mockclosed) return !0;
+                } catch (err) {}
+                try {
+                    if (!win.parent || !win.top) return !0;
+                } catch (err) {}
+                var iframeIndex = function(collection, item) {
+                    for (var i = 0; i < collection.length; i++) try {
+                        if (collection[i] === item) return i;
+                    } catch (err) {}
+                    return -1;
+                }(iframeWindows, win);
+                if (-1 !== iframeIndex) {
+                    var frame = iframeFrames[iframeIndex];
+                    if (frame && isFrameWindowClosed(frame)) return !0;
+                }
+                return !1;
+            }
+            function linkFrameWindow(frame) {
+                !function() {
+                    for (var i = 0; i < iframeWindows.length; i++) {
+                        var closed = !1;
+                        try {
+                            closed = iframeWindows[i].closed;
+                        } catch (err) {}
+                        if (closed) {
+                            iframeFrames.splice(i, 1);
+                            iframeWindows.splice(i, 1);
+                        }
+                    }
+                }();
+                if (frame && frame.contentWindow) try {
+                    iframeWindows.push(frame.contentWindow);
+                    iframeFrames.push(frame);
+                } catch (err) {}
+            }
+            function getUserAgent(win) {
+                return (win = win || window).navigator.mockUserAgent || win.navigator.userAgent;
+            }
+            function getFrameByName(win, name) {
+                for (var winFrames = getFrames(win), _i9 = 0, _length8 = null == winFrames ? 0 : winFrames.length; _i9 < _length8; _i9++) {
+                    var childFrame = winFrames[_i9];
+                    try {
+                        if (isSameDomain(childFrame) && childFrame.name === name && -1 !== winFrames.indexOf(childFrame)) return childFrame;
+                    } catch (err) {}
+                }
+                try {
+                    if (-1 !== winFrames.indexOf(win.frames[name])) return win.frames[name];
+                } catch (err) {}
+                try {
+                    if (-1 !== winFrames.indexOf(win[name])) return win[name];
+                } catch (err) {}
+            }
+            function findChildFrameByName(win, name) {
+                var frame = getFrameByName(win, name);
+                if (frame) return frame;
+                for (var _i11 = 0, _getFrames4 = getFrames(win), _length10 = null == _getFrames4 ? 0 : _getFrames4.length; _i11 < _length10; _i11++) {
+                    var namedFrame = findChildFrameByName(_getFrames4[_i11], name);
+                    if (namedFrame) return namedFrame;
+                }
+            }
+            function findFrameByName(win, name) {
+                var frame;
+                return (frame = getFrameByName(win, name)) ? frame : findChildFrameByName(getTop(win) || win, name);
+            }
+            function isParent(win, frame) {
+                var frameParent = getParent(frame);
+                if (frameParent) return frameParent === win;
+                for (var _i13 = 0, _getFrames6 = getFrames(win), _length12 = null == _getFrames6 ? 0 : _getFrames6.length; _i13 < _length12; _i13++) if (_getFrames6[_i13] === frame) return !0;
+                return !1;
+            }
+            function isOpener(parent, child) {
+                return parent === getOpener(child);
+            }
             function getAncestor(win) {
                 return getOpener(win = win || window) || getParent(win) || void 0;
+            }
+            function getAncestors(win) {
+                for (var results = [], ancestor = win; ancestor; ) (ancestor = getAncestor(ancestor)) && results.push(ancestor);
+                return results;
+            }
+            function isAncestor(parent, child) {
+                var actualParent = getAncestor(child);
+                if (actualParent) return actualParent === parent;
+                if (child === parent) return !1;
+                if (getTop(child) === child) return !1;
+                for (var _i15 = 0, _getFrames8 = getFrames(parent), _length14 = null == _getFrames8 ? 0 : _getFrames8.length; _i15 < _length14; _i15++) if (_getFrames8[_i15] === child) return !0;
+                return !1;
+            }
+            function isPopup() {
+                return Boolean(getOpener(window));
+            }
+            function isIframe() {
+                return Boolean(getParent(window));
+            }
+            function isFullpage() {
+                return Boolean(!isIframe() && !isPopup());
             }
             function anyMatch(collection1, collection2) {
                 for (var _i17 = 0, _length16 = null == collection1 ? 0 : collection1.length; _i17 < _length16; _i17++) for (var item1 = collection1[_i17], _i19 = 0, _length18 = null == collection2 ? 0 : collection2.length; _i19 < _length18; _i19++) if (item1 === collection2[_i19]) return !0;
                 return !1;
             }
+            function getDistanceFromTop() {
+                for (var distance = 0, parent = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : window; parent; ) (parent = getParent(parent)) && (distance += 1);
+                return distance;
+            }
+            function getNthParent(win) {
+                for (var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1, parent = win, i = 0; i < n; i++) {
+                    if (!parent) return;
+                    parent = getParent(parent);
+                }
+                return parent;
+            }
+            function getNthParentFromTop(win) {
+                var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 1;
+                return getNthParent(win, getDistanceFromTop(win) - n);
+            }
+            function isSameTopWindow(win1, win2) {
+                var top1 = getTop(win1) || win1, top2 = getTop(win2) || win2;
+                try {
+                    if (top1 && top2) return top1 === top2;
+                } catch (err) {}
+                var allFrames1 = getAllFramesInWindow(win1), allFrames2 = getAllFramesInWindow(win2);
+                if (anyMatch(allFrames1, allFrames2)) return !0;
+                var opener1 = getOpener(top1), opener2 = getOpener(top2);
+                return !(opener1 && anyMatch(getAllFramesInWindow(opener1), allFrames2) || (opener2 && anyMatch(getAllFramesInWindow(opener2), allFrames1), 
+                1));
+            }
+            function matchDomain(pattern, origin) {
+                if ("string" == typeof pattern) {
+                    if ("string" == typeof origin) return pattern === WILDCARD || origin === pattern;
+                    if (isRegex(origin)) return !1;
+                    if (Array.isArray(origin)) return !1;
+                }
+                return isRegex(pattern) ? isRegex(origin) ? pattern.toString() === origin.toString() : !Array.isArray(origin) && Boolean(origin.match(pattern)) : !!Array.isArray(pattern) && (Array.isArray(origin) ? JSON.stringify(pattern) === JSON.stringify(origin) : !isRegex(origin) && pattern.some(function(subpattern) {
+                    return matchDomain(subpattern, origin);
+                }));
+            }
+            function stringifyDomainPattern(pattern) {
+                return Array.isArray(pattern) ? "(" + pattern.join(" | ") + ")" : isRegex(pattern) ? "RegExp(" + pattern.toString() : pattern.toString();
+            }
             function getDomainFromUrl(url) {
                 return url.match(/^(https?|mock|file):\/\//) ? url.split("/").slice(0, 3).join("/") : getDomain();
             }
+            function onCloseWindow(win, callback) {
+                var delay = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 1e3, maxtime = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : 1 / 0, timeout = void 0;
+                !function check() {
+                    if (isWindowClosed(win)) {
+                        timeout && clearTimeout(timeout);
+                        return callback();
+                    }
+                    if (maxtime <= 0) clearTimeout(timeout); else {
+                        maxtime -= delay;
+                        timeout = setTimeout(check, delay);
+                    }
+                }();
+                return {
+                    cancel: function() {
+                        timeout && clearTimeout(timeout);
+                    }
+                };
+            }
+            function isWindow(obj) {
+                try {
+                    if (obj === window) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if ("[object Window]" === Object.prototype.toString.call(obj)) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (window.Window && obj instanceof window.Window) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.self === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.parent === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    if (obj && obj.top === obj) return !0;
+                } catch (err) {
+                    if (err && err.message === IE_WIN_ACCESS_ERROR) return !0;
+                }
+                try {
+                    obj && obj.__cross_domain_utils_window_check__;
+                } catch (err) {
+                    return !0;
+                }
+                return !1;
+            }
+            function isBrowser() {
+                return "undefined" != typeof window && void 0 !== window.location;
+            }
+            function isCurrentDomain(domain) {
+                return !!isBrowser() && getDomain() === domain;
+            }
+            function isMockDomain(domain) {
+                return 0 === domain.indexOf(PROTOCOL.MOCK);
+            }
+            function normalizeMockUrl(url) {
+                if (!isMockDomain(getDomainFromUrl(url))) return url;
+                throw new Error("Mock urls not supported out of test mode");
+            }
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFileProtocol;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isAboutProtocol;
+            });
+            __webpack_require__.d(__webpack_exports__, "h", function() {
+                return getParent;
+            });
+            __webpack_require__.d(__webpack_exports__, "g", function() {
+                return getOpener;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return canReadFromWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, "b", function() {
+                return getActualDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, "d", function() {
+                return getDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isBlankDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, "j", function() {
+                return isActuallySameDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, "m", function() {
+                return isSameDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return assertSameDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getParents;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isAncestorParent;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getFrames;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getAllChildFrames;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getTop;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getNextOpener;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getUltimateTop;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getAllFramesInWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getAllWindows;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isTop;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFrameWindowClosed;
+            });
+            __webpack_require__.d(__webpack_exports__, "p", function() {
+                return isWindowClosed;
+            });
+            __webpack_require__.d(__webpack_exports__, "q", function() {
+                return linkFrameWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, "i", function() {
+                return getUserAgent;
+            });
+            __webpack_require__.d(__webpack_exports__, "f", function() {
+                return getFrameByName;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return findChildFrameByName;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return findFrameByName;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isParent;
+            });
+            __webpack_require__.d(__webpack_exports__, "l", function() {
+                return isOpener;
+            });
+            __webpack_require__.d(__webpack_exports__, "c", function() {
+                return getAncestor;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getAncestors;
+            });
+            __webpack_require__.d(__webpack_exports__, "k", function() {
+                return isAncestor;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isPopup;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isIframe;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isFullpage;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getDistanceFromTop;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getNthParent;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return getNthParentFromTop;
+            });
+            __webpack_require__.d(__webpack_exports__, "n", function() {
+                return isSameTopWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, "r", function() {
+                return matchDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, "t", function() {
+                return stringifyDomainPattern;
+            });
+            __webpack_require__.d(__webpack_exports__, "e", function() {
+                return getDomainFromUrl;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return onCloseWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, "o", function() {
+                return isWindow;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isBrowser;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isCurrentDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return isMockDomain;
+            });
+            __webpack_require__.d(__webpack_exports__, "s", function() {
+                return normalizeMockUrl;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return !0;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return PROTOCOL;
+            });
+            __webpack_require__.d(__webpack_exports__, !1, function() {
+                return WILDCARD;
+            });
+            __webpack_require__.d(__webpack_exports__, "a", function() {
+                return WINDOW_TYPE;
+            });
         },
         "./node_modules/zalgo-promise/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
             "use strict";
@@ -975,18 +2683,20 @@
                 }
                 return !1;
             }
-            function getGlobal() {
-                var glob = void 0;
-                if ("undefined" != typeof window) glob = window; else {
-                    if ("undefined" == typeof window) throw new TypeError("Can not find global");
-                    glob = window;
+            var dispatchedErrors = [], possiblyUnhandledPromiseHandlers = [], activeCount = 0, flushPromise = void 0;
+            function flushActive() {
+                if (!activeCount && flushPromise) {
+                    var promise = flushPromise;
+                    flushPromise = null;
+                    promise.resolve();
                 }
-                var zalgoGlobal = glob.__zalgopromise__ = glob.__zalgopromise__ || {};
-                zalgoGlobal.flushPromises = zalgoGlobal.flushPromises || [];
-                zalgoGlobal.activeCount = zalgoGlobal.activeCount || 0;
-                zalgoGlobal.possiblyUnhandledPromiseHandlers = zalgoGlobal.possiblyUnhandledPromiseHandlers || [];
-                zalgoGlobal.dispatchedErrors = zalgoGlobal.dispatchedErrors || [];
-                return zalgoGlobal;
+            }
+            function startActive() {
+                activeCount += 1;
+            }
+            function endActive() {
+                activeCount -= 1;
+                flushActive();
             }
             var promise_ZalgoPromise = function() {
                 function ZalgoPromise(handler) {
@@ -1000,6 +2710,7 @@
                     this.handlers = [];
                     if (handler) {
                         var _result = void 0, _error = void 0, resolved = !1, rejected = !1, isAsync = !1;
+                        startActive();
                         try {
                             handler(function(res) {
                                 if (isAsync) _this.resolve(res); else {
@@ -1013,9 +2724,11 @@
                                 }
                             });
                         } catch (err) {
+                            endActive();
                             this.reject(err);
                             return;
                         }
+                        endActive();
                         isAsync = !0;
                         resolved ? this.resolve(_result) : rejected && this.reject(_error);
                     }
@@ -1040,12 +2753,12 @@
                     this.error = error;
                     this.errorHandled || setTimeout(function() {
                         _this2.errorHandled || function(err, promise) {
-                            if (-1 === getGlobal().dispatchedErrors.indexOf(err)) {
-                                getGlobal().dispatchedErrors.push(err);
+                            if (-1 === dispatchedErrors.indexOf(err)) {
+                                dispatchedErrors.push(err);
                                 setTimeout(function() {
                                     throw err;
                                 }, 1);
-                                for (var j = 0; j < getGlobal().possiblyUnhandledPromiseHandlers.length; j++) getGlobal().possiblyUnhandledPromiseHandlers[j](err, promise);
+                                for (var j = 0; j < possiblyUnhandledPromiseHandlers.length; j++) possiblyUnhandledPromiseHandlers[j](err, promise);
                             }
                         }(error, _this2);
                     }, 1);
@@ -1055,12 +2768,13 @@
                 ZalgoPromise.prototype.asyncReject = function(error) {
                     this.errorHandled = !0;
                     this.reject(error);
+                    return this;
                 };
                 ZalgoPromise.prototype.dispatch = function() {
                     var _this3 = this, dispatching = this.dispatching, resolved = this.resolved, rejected = this.rejected, handlers = this.handlers;
                     if (!dispatching && (resolved || rejected)) {
                         this.dispatching = !0;
-                        getGlobal().activeCount += 1;
+                        startActive();
                         for (var _loop = function(i) {
                             var _handlers$i = handlers[i], onSuccess = _handlers$i.onSuccess, onError = _handlers$i.onError, promise = _handlers$i.promise, result = void 0;
                             if (resolved) try {
@@ -1091,8 +2805,7 @@
                         }, i = 0; i < handlers.length; i++) _loop(i);
                         handlers.length = 0;
                         this.dispatching = !1;
-                        getGlobal().activeCount -= 1;
-                        0 === getGlobal().activeCount && ZalgoPromise.flushQueue();
+                        endActive();
                     }
                 };
                 ZalgoPromise.prototype.then = function(onSuccess, onError) {
@@ -1146,6 +2859,9 @@
                 ZalgoPromise.reject = function(error) {
                     return new ZalgoPromise().reject(error);
                 };
+                ZalgoPromise.asyncReject = function(error) {
+                    return new ZalgoPromise().asyncReject(error);
+                };
                 ZalgoPromise.all = function(promises) {
                     var promise = new ZalgoPromise(), count = promises.length, results = [];
                     if (!count) {
@@ -1190,10 +2906,10 @@
                 };
                 ZalgoPromise.onPossiblyUnhandledException = function(handler) {
                     return function(handler) {
-                        getGlobal().possiblyUnhandledPromiseHandlers.push(handler);
+                        possiblyUnhandledPromiseHandlers.push(handler);
                         return {
                             cancel: function() {
-                                getGlobal().possiblyUnhandledPromiseHandlers.splice(getGlobal().possiblyUnhandledPromiseHandlers.indexOf(handler), 1);
+                                possiblyUnhandledPromiseHandlers.splice(possiblyUnhandledPromiseHandlers.indexOf(handler), 1);
                             }
                         };
                     }(handler);
@@ -1201,11 +2917,14 @@
                 ZalgoPromise.try = function(method, context, args) {
                     if (method && "function" != typeof method && !method.call) throw new Error("Promise.try expected a function");
                     var result = void 0;
+                    startActive();
                     try {
                         result = method.apply(context, args || []);
                     } catch (err) {
+                        endActive();
                         return ZalgoPromise.reject(err);
                     }
+                    endActive();
                     return ZalgoPromise.resolve(result);
                 };
                 ZalgoPromise.delay = function(_delay) {
@@ -1217,15 +2936,11 @@
                     return !!(value && value instanceof ZalgoPromise) || utils_isPromise(value);
                 };
                 ZalgoPromise.flush = function() {
-                    var promise = new ZalgoPromise();
-                    getGlobal().flushPromises.push(promise);
-                    0 === getGlobal().activeCount && ZalgoPromise.flushQueue();
-                    return promise;
-                };
-                ZalgoPromise.flushQueue = function() {
-                    var promisesToFlush = getGlobal().flushPromises;
-                    getGlobal().flushPromises = [];
-                    for (var _i2 = 0, _length2 = null == promisesToFlush ? 0 : promisesToFlush.length; _i2 < _length2; _i2++) promisesToFlush[_i2].resolve();
+                    return function(Zalgo) {
+                        var promise = flushPromise = flushPromise || new ZalgoPromise();
+                        flushActive();
+                        return promise;
+                    }();
                 };
                 return ZalgoPromise;
             }();
@@ -1240,7 +2955,7 @@
             });
             var src = __webpack_require__("./node_modules/zalgo-promise/src/index.js"), cross_domain_utils_src = __webpack_require__("./node_modules/cross-domain-utils/src/index.js"), belter_src = __webpack_require__("./node_modules/belter/src/index.js"), conf = __webpack_require__("./src/conf/index.js"), global = __webpack_require__("./src/global.js"), tunnelWindows = Object(global.b)("tunnelWindows");
             global.a.openTunnelToParent = function(_ref2) {
-                var name = _ref2.name, source = _ref2.source, canary = _ref2.canary, sendMessage = _ref2.sendMessage, parentWindow = Object(cross_domain_utils_src.getParent)(window);
+                var name = _ref2.name, source = _ref2.source, canary = _ref2.canary, sendMessage = _ref2.sendMessage, parentWindow = Object(cross_domain_utils_src.h)(window);
                 if (!parentWindow) throw new Error("No parent window found to open tunnel to");
                 var id = function(_ref) {
                     var name = _ref.name, source = _ref.source, canary = _ref.canary, sendMessage = _ref.sendMessage;
@@ -1248,15 +2963,15 @@
                         for (var _i2 = 0, _tunnelWindows$keys2 = tunnelWindows.keys(), _length2 = null == _tunnelWindows$keys2 ? 0 : _tunnelWindows$keys2.length; _i2 < _length2; _i2++) {
                             var key = _tunnelWindows$keys2[_i2], tunnelWindow = tunnelWindows[key];
                             try {
-                                Object(belter_src.noop)(tunnelWindow.source);
+                                Object(belter_src.e)(tunnelWindow.source);
                             } catch (err) {
                                 tunnelWindows.del(key);
                                 continue;
                             }
-                            Object(cross_domain_utils_src.isWindowClosed)(tunnelWindow.source) && tunnelWindows.del(key);
+                            Object(cross_domain_utils_src.p)(tunnelWindow.source) && tunnelWindows.del(key);
                         }
                     }();
-                    var id = Object(belter_src.uniqueID)();
+                    var id = Object(belter_src.i)();
                     tunnelWindows.set(id, {
                         name: name,
                         source: source,
@@ -1275,12 +2990,12 @@
                     sendMessage: function() {
                         var tunnelWindow = tunnelWindows.get(id);
                         try {
-                            Object(belter_src.noop)(tunnelWindow && tunnelWindow.source);
+                            Object(belter_src.e)(tunnelWindow && tunnelWindow.source);
                         } catch (err) {
                             tunnelWindows.del(id);
                             return;
                         }
-                        if (tunnelWindow && tunnelWindow.source && !Object(cross_domain_utils_src.isWindowClosed)(tunnelWindow.source)) {
+                        if (tunnelWindow && tunnelWindow.source && !Object(cross_domain_utils_src.p)(tunnelWindow.source)) {
                             try {
                                 tunnelWindow.canary();
                             } catch (err) {
@@ -1294,15 +3009,15 @@
                 });
             };
             function needsBridgeForBrowser() {
-                return !!Object(cross_domain_utils_src.getUserAgent)(window).match(/MSIE|trident|edge\/12|edge\/13/i);
+                return !!Object(cross_domain_utils_src.i)(window).match(/MSIE|trident|edge\/12|edge\/13/i);
             }
             function needsBridgeForWin(win) {
-                return !Object(cross_domain_utils_src.isSameTopWindow)(window, win);
+                return !Object(cross_domain_utils_src.n)(window, win);
             }
             function needsBridgeForDomain(domain, win) {
                 if (domain) {
-                    if (Object(cross_domain_utils_src.getDomain)() !== Object(cross_domain_utils_src.getDomainFromUrl)(domain)) return !0;
-                } else if (win && !Object(cross_domain_utils_src.isSameDomain)(win)) return !0;
+                    if (Object(cross_domain_utils_src.d)() !== Object(cross_domain_utils_src.e)(domain)) return !0;
+                } else if (win && !Object(cross_domain_utils_src.m)(win)) return !0;
                 return !1;
             }
             function needsBridge(_ref) {
@@ -1310,11 +3025,11 @@
                 return !(!needsBridgeForBrowser() || domain && !needsBridgeForDomain(domain, win) || win && !needsBridgeForWin(win));
             }
             function getBridgeName(domain) {
-                var sanitizedDomain = (domain = domain || Object(cross_domain_utils_src.getDomainFromUrl)(domain)).replace(/[^a-zA-Z0-9]+/g, "_");
+                var sanitizedDomain = (domain = domain || Object(cross_domain_utils_src.e)(domain)).replace(/[^a-zA-Z0-9]+/g, "_");
                 return conf.a + "_" + sanitizedDomain;
             }
             function isBridge() {
-                return Boolean(window.name && window.name === getBridgeName(Object(cross_domain_utils_src.getDomain)()));
+                return Boolean(window.name && window.name === getBridgeName(Object(cross_domain_utils_src.d)()));
             }
             var documentBodyReady = new src.a(function(resolve) {
                 if (window.document && window.document.body) return resolve(window.document.body);
@@ -1338,29 +3053,29 @@
             function registerRemoteSendMessage(win, domain, sendMessage) {
                 findRemoteWindow(win).resolve(function(remoteWin, remoteDomain, message) {
                     if (remoteWin !== win) throw new Error("Remote window does not match window");
-                    if (!Object(cross_domain_utils_src.matchDomain)(remoteDomain, domain)) throw new Error("Remote domain " + remoteDomain + " does not match domain " + domain);
+                    if (!Object(cross_domain_utils_src.r)(remoteDomain, domain)) throw new Error("Remote domain " + remoteDomain + " does not match domain " + domain);
                     sendMessage(message);
                 });
             }
             function rejectRemoteSendMessage(win, err) {
-                findRemoteWindow(win).reject(err).catch(belter_src.noop);
+                findRemoteWindow(win).reject(err).catch(belter_src.e);
             }
             function sendBridgeMessage(win, domain, message) {
-                var messagingChild = Object(cross_domain_utils_src.isOpener)(window, win), messagingParent = Object(cross_domain_utils_src.isOpener)(win, window);
+                var messagingChild = Object(cross_domain_utils_src.l)(window, win), messagingParent = Object(cross_domain_utils_src.l)(win, window);
                 if (!messagingChild && !messagingParent) throw new Error("Can only send messages to and from parent and popup windows");
                 return findRemoteWindow(win).then(function(sendMessage) {
                     return sendMessage(win, domain, message);
                 });
             }
-            var awaitRemoteBridgeForWindow = Object(belter_src.weakMapMemoize)(function(win) {
+            var awaitRemoteBridgeForWindow = Object(belter_src.j)(function(win) {
                 return src.a.try(function() {
                     try {
-                        var frame = Object(cross_domain_utils_src.getFrameByName)(win, getBridgeName(Object(cross_domain_utils_src.getDomain)()));
+                        var frame = Object(cross_domain_utils_src.f)(win, getBridgeName(Object(cross_domain_utils_src.d)()));
                         if (!frame) return;
-                        return Object(cross_domain_utils_src.isSameDomain)(frame) && frame[conf.j.POSTROBOT] ? frame : new src.a(function(resolve) {
+                        return Object(cross_domain_utils_src.m)(frame) && frame[conf.j.POSTROBOT] ? frame : new src.a(function(resolve) {
                             var interval = void 0, timeout = void 0;
                             interval = setInterval(function() {
-                                if (frame && Object(cross_domain_utils_src.isSameDomain)(frame) && frame[conf.j.POSTROBOT]) {
+                                if (frame && Object(cross_domain_utils_src.m)(frame) && frame[conf.j.POSTROBOT]) {
                                     clearInterval(interval);
                                     clearTimeout(timeout);
                                     return resolve(frame);
@@ -1376,7 +3091,7 @@
             });
             function openTunnelToOpener() {
                 return src.a.try(function() {
-                    var opener = Object(cross_domain_utils_src.getOpener)(window);
+                    var opener = Object(cross_domain_utils_src.g)(window);
                     if (opener && needsBridge({
                         win: opener
                     })) {
@@ -1388,7 +3103,7 @@
                                 canary: function() {},
                                 sendMessage: function(message) {
                                     try {
-                                        Object(belter_src.noop)(window);
+                                        Object(belter_src.e)(window);
                                     } catch (err) {
                                         return;
                                     }
@@ -1416,15 +3131,15 @@
             }
             var lib = __webpack_require__("./src/lib/index.js"), bridges = Object(global.b)("bridges"), bridgeFrames = Object(global.b)("bridgeFrames"), popupWindowsByName = Object(global.b)("popupWindowsByName"), popupWindowsByWin = Object(global.c)("popupWindowsByWin");
             function hasBridge(url, domain) {
-                return bridges.has(domain || Object(cross_domain_utils_src.getDomainFromUrl)(url));
+                return bridges.has(domain || Object(cross_domain_utils_src.e)(url));
             }
             function openBridge(url, domain) {
-                domain = domain || Object(cross_domain_utils_src.getDomainFromUrl)(url);
+                domain = domain || Object(cross_domain_utils_src.e)(url);
                 return bridges.getOrSet(domain, function() {
                     return src.a.try(function() {
-                        if (Object(cross_domain_utils_src.getDomain)() === domain) throw new Error("Can not open bridge on the same domain as current domain: " + domain);
+                        if (Object(cross_domain_utils_src.d)() === domain) throw new Error("Can not open bridge on the same domain as current domain: " + domain);
                         var name = getBridgeName(domain);
-                        if (Object(cross_domain_utils_src.getFrameByName)(window, name)) throw new Error("Frame with name " + name + " already exists on page");
+                        if (Object(cross_domain_utils_src.f)(window, name)) throw new Error("Frame with name " + name + " already exists on page");
                         var iframe = function(name, url) {
                             var iframe = document.createElement("iframe");
                             iframe.setAttribute("name", name);
@@ -1491,7 +3206,7 @@
             function linkWindow(_ref2) {
                 for (var win = _ref2.win, name = _ref2.name, domain = _ref2.domain, _i2 = 0, _popupWindowsByName$k2 = popupWindowsByName.keys(), _length2 = null == _popupWindowsByName$k2 ? 0 : _popupWindowsByName$k2.length; _i2 < _length2; _i2++) {
                     var winName = _popupWindowsByName$k2[_i2];
-                    Object(cross_domain_utils_src.isWindowClosed)(popupWindowsByName.get(winName).win) && popupWindowsByName.del(winName);
+                    Object(cross_domain_utils_src.p)(popupWindowsByName.get(winName).win) && popupWindowsByName.del(winName);
                 }
                 var details = popupWindowsByWin.getOrSet(win, function() {
                     return name ? popupWindowsByName.getOrSet(name, function() {
@@ -1519,17 +3234,17 @@
             function linkUrl(win, url) {
                 linkWindow({
                     win: win,
-                    domain: Object(cross_domain_utils_src.getDomainFromUrl)(url)
+                    domain: Object(cross_domain_utils_src.e)(url)
                 });
             }
             var windowOpen = window.open;
             window.open = function(url, name, options, last) {
-                var win = windowOpen.call(this, Object(cross_domain_utils_src.normalizeMockUrl)(url), name, options, last);
+                var win = windowOpen.call(this, Object(cross_domain_utils_src.s)(url), name, options, last);
                 if (!win) return win;
                 linkWindow({
                     win: win,
                     name: name,
-                    domain: url ? Object(cross_domain_utils_src.getDomainFromUrl)(url) : null
+                    domain: url ? Object(cross_domain_utils_src.e)(url) : null
                 });
                 return win;
             };
@@ -1650,7 +3365,7 @@
                 HELLO: "postrobot_hello",
                 OPEN_TUNNEL: "postrobot_open_tunnel"
             }, WINDOW_PROP = {
-                POSTROBOT: "__postRobot__"
+                POSTROBOT: "__postRobot__quiq__"
             }, SEND_STRATEGY = {
                 POST_MESSAGE: "postrobot_post_message",
                 BRIDGE: "postrobot_bridge",
@@ -1741,7 +3456,7 @@
                 };
             };
             __webpack_exports__.b = function(key) {
-                var defStore = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : getObj, store = Object(__WEBPACK_IMPORTED_MODULE_2_belter_src__.getOrSet)(global, key, defStore);
+                var defStore = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : getObj, store = Object(__WEBPACK_IMPORTED_MODULE_2_belter_src__.b)(global, key, defStore);
                 return {
                     has: function(storeKey) {
                         return store.hasOwnProperty(storeKey);
@@ -1933,16 +3648,16 @@
                     this.serializedWindow = serializedWindow;
                     this.actualWindowPromise = new zalgo_promise_src.a();
                     actualWindow && this.setWindow(actualWindow);
-                    this.serializedWindow.getInstanceID = Object(belter_src.memoizePromise)(this.serializedWindow.getInstanceID);
+                    this.serializedWindow.getInstanceID = Object(belter_src.d)(this.serializedWindow.getInstanceID);
                 }
                 ProxyWindow.prototype.getType = function() {
                     return this.serializedWindow.type;
                 };
                 ProxyWindow.prototype.isPopup = function() {
-                    return this.getType() === src.WINDOW_TYPE.POPUP;
+                    return this.getType() === src.a.POPUP;
                 };
                 ProxyWindow.prototype.isIframe = function() {
-                    return this.getType() === src.WINDOW_TYPE.IFRAME;
+                    return this.getType() === src.a.IFRAME;
                 };
                 ProxyWindow.prototype.setLocation = function(href) {
                     var _this = this;
@@ -1957,7 +3672,7 @@
                     var _this2 = this;
                     return zalgo_promise_src.a.try(function() {
                         if (!_this2.actualWindow) return _this2.serializedWindow.setName(name);
-                        if (!Object(src.isSameDomain)(_this2.actualWindow)) throw new Error("Can not set name for window on different domain");
+                        if (!Object(src.m)(_this2.actualWindow)) throw new Error("Can not set name for window on different domain");
                         _this2.actualWindow.name = name;
                         _this2.actualWindow.frameElement && _this2.actualWindow.frameElement.setAttribute("name", name);
                         (0, __webpack_require__("./src/bridge/index.js").linkWindow)({
@@ -1989,7 +3704,7 @@
                 ProxyWindow.prototype.isClosed = function() {
                     var _this5 = this;
                     return zalgo_promise_src.a.try(function() {
-                        return _this5.actualWindow ? Object(src.isWindowClosed)(_this5.actualWindow) : _this5.serializedWindow.isClosed();
+                        return _this5.actualWindow ? Object(src.p)(_this5.actualWindow) : _this5.serializedWindow.isClosed();
                     });
                 };
                 ProxyWindow.prototype.setWindow = function(win) {
@@ -2019,7 +3734,7 @@
                     return this.serializedWindow;
                 };
                 ProxyWindow.prototype.shouldClean = function() {
-                    return this.actualWindow && Object(src.isWindowClosed)(this.actualWindow);
+                    return this.actualWindow && Object(src.p)(this.actualWindow);
                 };
                 ProxyWindow.unwrap = function(win) {
                     return ProxyWindow.isProxyWindow(win) ? win.unwrap() : win;
@@ -2040,10 +3755,10 @@
                 ProxyWindow.toProxyWindow = function(win) {
                     cleanupProxyWindows();
                     return ProxyWindow.isProxyWindow(win) ? win : winToProxyWindow.getOrSet(win, function() {
-                        var id = Object(belter_src.uniqueID)();
+                        var id = Object(belter_src.i)();
                         return idToProxyWindow.set(id, new ProxyWindow({
                             id: id,
-                            type: Object(src.getOpener)(win) ? src.WINDOW_TYPE.POPUP : src.WINDOW_TYPE.IFRAME,
+                            type: Object(src.g)(win) ? src.a.POPUP : src.a.IFRAME,
                             getInstanceID: function() {
                                 return Object(lib.b)(win);
                             },
@@ -2059,12 +3774,12 @@
                             },
                             isClosed: function() {
                                 return zalgo_promise_src.a.try(function() {
-                                    return Object(src.isWindowClosed)(win);
+                                    return Object(src.p)(win);
                                 });
                             },
                             setLocation: function(href) {
                                 return zalgo_promise_src.a.try(function() {
-                                    if (Object(src.isSameDomain)(win)) try {
+                                    if (Object(src.m)(win)) try {
                                         if (win.location && "function" == typeof win.location.replace) {
                                             win.location.replace(href);
                                             return;
@@ -2094,7 +3809,7 @@
                 return target;
             }, methodStore = Object(global.c)("methodStore"), proxyWindowMethods = Object(global.b)("proxyWindowMethods");
             global.a.listeningForFunctions = global.a.listeningForFunctions || !1;
-            var listenForFunctionCalls = Object(belter_src.once)(function() {
+            var listenForFunctionCalls = Object(belter_src.f)(function() {
                 if (!global.a.listeningForFunctions) {
                     global.a.listeningForFunctions = !0;
                     global.a.on(conf.d.METHOD, {
@@ -2105,11 +3820,11 @@
                             var meth = methodStore.getOrSet(source, function() {
                                 return {};
                             })[data.id] || proxyWindowMethods.get(id);
-                            if (!meth) throw new Error("Could not find method '" + data.name + "' with id: " + data.id + " in " + Object(src.getDomain)(window));
+                            if (!meth) throw new Error("Could not find method '" + data.name + "' with id: " + data.id + " in " + Object(src.d)(window));
                             var proxy = meth.proxy, domain = meth.domain, val = meth.val;
-                            if (!Object(src.matchDomain)(domain, origin)) throw new Error("Method '" + data.name + "' domain " + JSON.stringify(meth.domain) + " does not match origin " + origin + " in " + Object(src.getDomain)(window));
+                            if (!Object(src.r)(domain, origin)) throw new Error("Method '" + data.name + "' domain " + JSON.stringify(meth.domain) + " does not match origin " + origin + " in " + Object(src.d)(window));
                             return proxy ? proxy.matchWindow(source).then(function(match) {
-                                if (!match) throw new Error("Method call '" + data.name + "' failed - proxy window does not match source in " + Object(src.getDomain)(window));
+                                if (!match) throw new Error("Method call '" + data.name + "' failed - proxy window does not match source in " + Object(src.d)(window));
                                 return val;
                             }) : val;
                         }).then(function(method) {
@@ -2130,7 +3845,7 @@
             });
             function function_serializeFunction(destination, domain, val, key) {
                 listenForFunctionCalls();
-                var id = Object(belter_src.uniqueID)();
+                var id = Object(belter_src.i)();
                 destination = window_ProxyWindow.unwrap(destination);
                 if (window_ProxyWindow.isProxyWindow(destination)) {
                     proxyWindowMethods.set(id, {
@@ -2181,7 +3896,7 @@
                 }, _serialize[TYPE.FUNCTION] = function(val, key) {
                     return function_serializeFunction(destination, domain, val, key);
                 }, _serialize[TYPE.OBJECT] = function(val) {
-                    return Object(src.isWindow)(val) || window_ProxyWindow.isProxyWindow(val) ? (win = val, 
+                    return Object(src.o)(val) || window_ProxyWindow.isProxyWindow(val) ? (win = val, 
                     serializeType(conf.h.CROSS_DOMAIN_WINDOW, window_ProxyWindow.serialize(win))) : val;
                     var win;
                 }, _serialize));
@@ -2251,8 +3966,8 @@
                 (Array.isArray(domain) ? domain : "string" == typeof domain ? [ domain ] : [ conf.i ]).map(function(dom) {
                     if (0 === dom.indexOf(conf.f.MOCK)) {
                         if (window.location.protocol === conf.f.FILE) return conf.i;
-                        if (!Object(src.isActuallySameDomain)(win)) throw new Error("Attempting to send messsage to mock domain " + dom + ", but window is actually cross-domain");
-                        return Object(src.getActualDomain)(win);
+                        if (!Object(src.j)(win)) throw new Error("Attempting to send messsage to mock domain " + dom + ", but window is actually cross-domain");
+                        return Object(src.b)(win);
                     }
                     return 0 === dom.indexOf(conf.f.FILE) ? conf.i : dom;
                 }).forEach(function(dom) {
@@ -2262,20 +3977,20 @@
             var strategies__require = __webpack_require__("./src/bridge/index.js"), sendBridgeMessage = strategies__require.sendBridgeMessage, needsBridgeForBrowser = strategies__require.needsBridgeForBrowser, isBridge = strategies__require.isBridge;
             SEND_MESSAGE_STRATEGIES[conf.g.BRIDGE] = function(win, serializedMessage, domain) {
                 if (needsBridgeForBrowser() || isBridge()) {
-                    if (Object(src.isSameDomain)(win)) throw new Error("Post message through bridge disabled between same domain windows");
-                    if (!1 !== Object(src.isSameTopWindow)(window, win)) throw new Error("Can only use bridge to communicate between two different windows, not between frames");
+                    if (Object(src.m)(win)) throw new Error("Post message through bridge disabled between same domain windows");
+                    if (!1 !== Object(src.n)(window, win)) throw new Error("Can only use bridge to communicate between two different windows, not between frames");
                     return sendBridgeMessage(win, domain, serializedMessage);
                 }
             };
             SEND_MESSAGE_STRATEGIES[conf.g.GLOBAL] = function(win, serializedMessage) {
                 if (Object(lib.f)()) {
-                    if (!Object(src.isSameDomain)(win)) throw new Error("Post message through global disabled between different domain windows");
-                    if (!1 !== Object(src.isSameTopWindow)(window, win)) throw new Error("Can only use global to communicate between two different windows, not between frames");
+                    if (!Object(src.m)(win)) throw new Error("Post message through global disabled between different domain windows");
+                    if (!1 !== Object(src.n)(window, win)) throw new Error("Can only use global to communicate between two different windows, not between frames");
                     var foreignGlobal = win[conf.j.POSTROBOT];
                     if (!foreignGlobal) throw new Error("Can not find postRobot global on foreign window");
                     return foreignGlobal.receiveMessage({
                         source: window,
-                        origin: Object(src.getDomain)(),
+                        origin: Object(src.d)(),
                         data: serializedMessage
                     });
                 }
@@ -2290,9 +4005,9 @@
             function sendMessage(win, domain, message) {
                 return zalgo_promise_src.a.try(function() {
                     var _serializeMessage;
-                    if (Object(src.isWindowClosed)(win)) throw new Error("Window is closed");
+                    if (Object(src.p)(win)) throw new Error("Window is closed");
                     var serializedMessage = serializeMessage(win, domain, ((_serializeMessage = {})[conf.j.POSTROBOT] = send__extends({
-                        id: Object(belter_src.uniqueID)()
+                        id: Object(belter_src.i)()
                     }, message), _serializeMessage)), messages = [];
                     return zalgo_promise_src.a.map(Object.keys(SEND_MESSAGE_STRATEGIES), function(strategyName) {
                         return zalgo_promise_src.a.try(function() {
@@ -2302,7 +4017,7 @@
                             messages.push(strategyName + ": success");
                             return !0;
                         }, function(err) {
-                            messages.push(strategyName + ": " + Object(belter_src.stringifyError)(err) + "\n");
+                            messages.push(strategyName + ": " + Object(belter_src.h)(err) + "\n");
                             return !1;
                         });
                     }).then(function(results) {
@@ -2339,7 +4054,7 @@
                                     if (domainListeners[domain]) return domainListeners[domain];
                                     if (domainListeners[__DOMAIN_REGEX__]) for (var _i4 = 0, _domainListeners$__DO2 = domainListeners[__DOMAIN_REGEX__], _length4 = null == _domainListeners$__DO2 ? 0 : _domainListeners$__DO2.length; _i4 < _length4; _i4++) {
                                         var _ref5 = _domainListeners$__DO2[_i4], regex = _ref5.regex, listener = _ref5.listener;
-                                        if (Object(src.matchDomain)(regex, domain)) return listener;
+                                        if (Object(src.r)(regex, domain)) return listener;
                                     }
                                 }
                                 if (domainListeners[conf.i]) return domainListeners[conf.i];
@@ -2362,7 +4077,7 @@
                 });
                 function sendResponse(type) {
                     var data = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
-                    return message.fireAndForget || Object(src.isWindowClosed)(source) ? zalgo_promise_src.a.resolve() : sendMessage(source, origin, types__extends({
+                    return message.fireAndForget || Object(src.p)(source) ? zalgo_promise_src.a.resolve() : sendMessage(source, origin, types__extends({
                         type: type,
                         hash: message.hash,
                         name: message.name
@@ -2370,7 +4085,7 @@
                 }
                 return zalgo_promise_src.a.all([ sendResponse(conf.e.ACK), zalgo_promise_src.a.try(function() {
                     if (!options) throw new Error("No handler found for post message: " + message.name + " from " + origin + " in " + window.location.protocol + "//" + window.location.host + window.location.pathname);
-                    if (!Object(src.matchDomain)(options.domain, origin)) throw new Error("Request origin " + origin + " does not match domain " + options.domain.toString());
+                    if (!Object(src.r)(options.domain, origin)) throw new Error("Request origin " + origin + " does not match domain " + options.domain.toString());
                     var data = message.data;
                     return options.handler({
                         source: source,
@@ -2387,7 +4102,7 @@
                         ack: conf.c.ERROR,
                         error: error
                     });
-                }) ]).then(belter_src.noop).catch(function(err) {
+                }) ]).then(belter_src.e).catch(function(err) {
                     if (options && options.handleError) return options.handleError(err);
                     throw err;
                 });
@@ -2395,14 +4110,14 @@
                 if (!isResponseListenerErrored(message.hash)) {
                     var options = getResponseListener(message.hash);
                     if (!options) throw new Error("No handler found for post message ack for message: " + message.name + " from " + origin + " in " + window.location.protocol + "//" + window.location.host + window.location.pathname);
-                    if (!Object(src.matchDomain)(options.domain, origin)) throw new Error("Ack origin " + origin + " does not match domain " + options.domain.toString());
+                    if (!Object(src.r)(options.domain, origin)) throw new Error("Ack origin " + origin + " does not match domain " + options.domain.toString());
                     options.ack = !0;
                 }
             }, _RECEIVE_MESSAGE_TYPE[conf.e.RESPONSE] = function(source, origin, message) {
                 if (!isResponseListenerErrored(message.hash)) {
                     var options = getResponseListener(message.hash);
                     if (!options) throw new Error("No handler found for post message response for message: " + message.name + " from " + origin + " in " + window.location.protocol + "//" + window.location.host + window.location.pathname);
-                    if (!Object(src.matchDomain)(options.domain, origin)) throw new Error("Response origin " + origin + " does not match domain " + Object(src.stringifyDomainPattern)(options.domain));
+                    if (!Object(src.r)(options.domain, origin)) throw new Error("Response origin " + origin + " does not match domain " + Object(src.t)(options.domain));
                     deleteResponseListener(message.hash);
                     if (message.ack === conf.c.ERROR) return options.respond(message.error, null);
                     if (message.ack === conf.c.SUCCESS) {
@@ -2439,13 +4154,13 @@
                     Object(lib.e)(source);
                     if (!receivedMessages.has(message.id)) {
                         receivedMessages.set(message.id, !0);
-                        Object(src.isWindowClosed)(source) && !message.fireAndForget || RECEIVE_MESSAGE_TYPES[message.type](source, origin, message);
+                        Object(src.p)(source) && !message.fireAndForget || RECEIVE_MESSAGE_TYPES[message.type](source, origin, message);
                     }
                 }
             }
             function messageListener(event) {
                 try {
-                    Object(belter_src.noop)(event.source);
+                    Object(belter_src.e)(event.source);
                 } catch (err) {
                     return;
                 }
@@ -2479,19 +4194,19 @@
                     if (!targetWindow) throw new Error("Expected options.window to be a window object, iframe, or iframe element id.");
                     var win = targetWindow;
                     domain = options.domain || conf.i;
-                    var hash = options.name + "_" + Object(belter_src.uniqueID)();
-                    if (Object(src.isWindowClosed)(win)) throw new Error("Target window is closed");
+                    var hash = options.name + "_" + Object(belter_src.i)();
+                    if (Object(src.p)(win)) throw new Error("Target window is closed");
                     var hasResult = !1, reqPromises = requestPromises.getOrSet(win, function() {
                         return [];
                     }), requestPromise = zalgo_promise_src.a.try(function() {
-                        if (Object(src.isAncestor)(window, win)) return Object(lib.a)(win, options.timeout || conf.b.CHILD_WINDOW_TIMEOUT);
+                        if (Object(src.k)(window, win)) return Object(lib.a)(win, options.timeout || conf.b.CHILD_WINDOW_TIMEOUT);
                     }).then(function() {
                         var origin = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).domain;
-                        if (Object(belter_src.isRegex)(domain) && !origin) return Object(lib.g)(win);
+                        if (Object(belter_src.c)(domain) && !origin) return Object(lib.g)(win);
                     }).then(function() {
                         var origin = (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}).domain;
-                        if (Object(belter_src.isRegex)(domain)) {
-                            if (!Object(src.matchDomain)(domain, origin)) throw new Error("Remote window domain " + origin + " does not match regex: " + domain.toString());
+                        if (Object(belter_src.c)(domain)) {
+                            if (!Object(src.r)(domain, origin)) throw new Error("Remote window domain " + origin + " does not match regex: " + domain.toString());
                             domain = origin;
                         }
                         if ("string" != typeof domain && !Array.isArray(domain)) throw new TypeError("Expected domain to be a string or array");
@@ -2523,15 +4238,15 @@
                             var totalAckTimeout = Object(lib.d)(win) ? conf.b.ACK_TIMEOUT_KNOWN : conf.b.ACK_TIMEOUT, totalResTimeout = options.timeout || conf.b.RES_TIMEOUT, ackTimeout = totalAckTimeout, resTimeout = totalResTimeout, cycleTime = 100;
                             setTimeout(function cycle() {
                                 if (!hasResult) {
-                                    if (Object(src.isWindowClosed)(win)) return responseListener.ack ? reject(new Error("Window closed for " + name + " before response")) : reject(new Error("Window closed for " + name + " before ack"));
+                                    if (Object(src.p)(win)) return responseListener.ack ? reject(new Error("Window closed for " + name + " before response")) : reject(new Error("Window closed for " + name + " before ack"));
                                     ackTimeout = Math.max(ackTimeout - cycleTime, 0);
                                     -1 !== resTimeout && (resTimeout = Math.max(resTimeout - cycleTime, 0));
                                     if (responseListener.ack) {
                                         if (-1 === resTimeout) return;
                                         cycleTime = Math.min(resTimeout, 2e3);
                                     } else {
-                                        if (0 === ackTimeout) return reject(new Error("No ack for postMessage " + name + " in " + Object(src.getDomain)() + " in " + totalAckTimeout + "ms"));
-                                        if (0 === resTimeout) return reject(new Error("No response for postMessage " + name + " in " + Object(src.getDomain)() + " in " + totalResTimeout + "ms"));
+                                        if (0 === ackTimeout) return reject(new Error("No ack for postMessage " + name + " in " + Object(src.d)() + " in " + totalAckTimeout + "ms"));
+                                        if (0 === resTimeout) return reject(new Error("No response for postMessage " + name + " in " + Object(src.d)() + " in " + totalResTimeout + "ms"));
                                     }
                                     setTimeout(cycle, cycleTime);
                                 }
@@ -2555,7 +4270,7 @@
                 return request(options);
             }
             function sendToParent(name, data, options) {
-                var win = Object(src.getAncestor)();
+                var win = Object(src.c)();
                 return win ? _send(win, name, data, options) : new zalgo_promise_src.a(function(resolve, reject) {
                     return reject(new Error("Window does not have a parent"));
                 });
@@ -2630,11 +4345,11 @@
                     if (existingListener) throw win && domain ? new Error("Request listener already exists for " + name + " on domain " + domain.toString() + " for " + (win === global.a.WINDOW_WILDCARD ? "wildcard" : "specified") + " window") : win ? new Error("Request listener already exists for " + name + " for " + (win === global.a.WINDOW_WILDCARD ? "wildcard" : "specified") + " window") : domain ? new Error("Request listener already exists for " + name + " on domain " + domain.toString()) : new Error("Request listener already exists for " + name);
                     var nameListeners = requestListeners.getOrSet(win, function() {
                         return {};
-                    }), domainListeners = Object(belter_src.getOrSet)(nameListeners, name, function() {
+                    }), domainListeners = Object(belter_src.b)(nameListeners, name, function() {
                         return {};
                     }), strDomain = domain.toString(), regexListeners = void 0, regexListener = void 0;
-                    if (Object(belter_src.isRegex)(domain)) {
-                        regexListeners = Object(belter_src.getOrSet)(domainListeners, __DOMAIN_REGEX__, function() {
+                    if (Object(belter_src.c)(domain)) {
+                        regexListeners = Object(belter_src.b)(domainListeners, __DOMAIN_REGEX__, function() {
                             return [];
                         });
                         regexListener = {
@@ -2661,13 +4376,13 @@
                 }, listenerOptions);
                 if (options.once) {
                     var _handler = listenerOptions.handler;
-                    listenerOptions.handler = Object(belter_src.once)(function() {
+                    listenerOptions.handler = Object(belter_src.f)(function() {
                         requestListener.cancel();
                         return _handler.apply(this, arguments);
                     });
                 }
-                if (listenerOptions.window && options.errorOnClose) var interval = Object(belter_src.safeInterval)(function() {
-                    if (win && "object" === (void 0 === win ? "undefined" : server__typeof(win)) && Object(src.isWindowClosed)(win)) {
+                if (listenerOptions.window && options.errorOnClose) var interval = Object(belter_src.g)(function() {
+                    if (win && "object" === (void 0 === win ? "undefined" : server__typeof(win)) && Object(src.p)(win)) {
                         interval.cancel();
                         listenerOptions.handleError(new Error("Post message target window is closed"));
                     }
@@ -2723,14 +4438,14 @@
                 delete window[conf.j.POSTROBOT];
                 window.removeEventListener("message", messageListener);
             }
-            var public_parent = Object(src.getAncestor)();
+            var public_parent = Object(src.c)();
             function cleanUpWindow(win) {
-                for (var _i2 = 0, _requestPromises$get2 = requestPromises.get(win, []), _length2 = null == _requestPromises$get2 ? 0 : _requestPromises$get2.length; _i2 < _length2; _i2++) _requestPromises$get2[_i2].reject(new Error("Window cleaned up before response")).catch(belter_src.noop);
+                for (var _i2 = 0, _requestPromises$get2 = requestPromises.get(win, []), _length2 = null == _requestPromises$get2 ? 0 : _requestPromises$get2.length; _i2 < _length2; _i2++) _requestPromises$get2[_i2].reject(new Error("Window cleaned up before response")).catch(belter_src.e);
             }
             var bridge = __webpack_require__("./src/bridge/interface.js");
             if (!global.a.initialized) {
                 global.a.initialized = !0;
-                Object(belter_src.addEventListener)(window, "message", messageListener);
+                Object(belter_src.a)(window, "message", messageListener);
                 bridge && bridge.openTunnelToOpener();
                 Object(lib.c)();
             }
@@ -2796,14 +4511,14 @@
         "./src/lib/index.js": function(module, __webpack_exports__, __webpack_require__) {
             "use strict";
             var src = __webpack_require__("./node_modules/cross-domain-utils/src/index.js"), zalgo_promise_src = __webpack_require__("./node_modules/zalgo-promise/src/index.js"), belter_src = __webpack_require__("./node_modules/belter/src/index.js"), conf = __webpack_require__("./src/conf/index.js"), global = __webpack_require__("./src/global.js");
-            global.a.instanceID = global.a.instanceID || Object(belter_src.uniqueID)();
+            global.a.instanceID = global.a.instanceID || Object(belter_src.i)();
             var helloPromises = Object(global.c)("helloPromises");
             function getHelloPromise(win) {
                 return helloPromises.getOrSet(win, function() {
                     return new zalgo_promise_src.a();
                 });
             }
-            var listenForHello = Object(belter_src.once)(function() {
+            var listenForHello = Object(belter_src.f)(function() {
                 global.a.on(conf.d.HELLO, {
                     domain: conf.i
                 }, function(_ref) {
@@ -2836,15 +4551,15 @@
                     };
                 });
             }
-            var getWindowInstanceID = Object(belter_src.weakMapMemoizePromise)(function(win) {
+            var getWindowInstanceID = Object(belter_src.k)(function(win) {
                 return sayHello(win).then(function(_ref3) {
                     return _ref3.instanceID;
                 });
             });
             function initHello() {
                 listenForHello();
-                var parent = Object(src.getAncestor)();
-                parent && sayHello(parent).catch(belter_src.noop);
+                var parent = Object(src.c)();
+                parent && sayHello(parent).catch(belter_src.e);
             }
             function awaitWindowHello(win) {
                 var timeout = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 5e3, name = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : "Window", promise = getHelloPromise(win);
@@ -2852,7 +4567,7 @@
                 return promise;
             }
             function needsGlobalMessagingForBrowser() {
-                return !!Object(src.getUserAgent)(window).match(/MSIE|rv:11|trident|edge\/12|edge\/13/i);
+                return !!Object(src.i)(window).match(/MSIE|rv:11|trident|edge\/12|edge\/13/i);
             }
             var knownWindows = Object(global.c)("knownWindows");
             function markWindowKnown(win) {

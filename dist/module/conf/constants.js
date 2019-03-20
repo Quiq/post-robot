@@ -16,7 +16,7 @@ export var MESSAGE_NAME = {
 };
 
 export var WINDOW_PROP = {
-    POSTROBOT: '__postRobot__'
+    POSTROBOT: '__postRobot__quiq__'
 };
 
 export var SEND_STRATEGY = {
